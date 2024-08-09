@@ -22,10 +22,10 @@ public class Theme extends ThemeBase {
     public ColorSetting backColor = new ColorSetting("BackColor", new Color(0, 0, 0, 150));
 
     public BooleanSetting settingsOutline = new BooleanSetting("SettingsOutline", false);
-    public ColorSetting moduleOutlineColor = new ColorSetting("ModuleOutlineColor", new Color(145, 145, 145, NhackPlugin.theme.alpha.getValue()));
+    public ColorSetting moduleOutlineColor = new ColorSetting("ModuleOutlineColor", new Color(145, 145, 145, 100));
     public ColorSetting outlineColor = new ColorSetting("OutlineColor", Color.WHITE);
 
-    public ColorSetting backgroundColor = new ColorSetting("BackgroundColor", new Color(0, 0, 0, NhackPlugin.theme.alpha.getValue()));
+    public ColorSetting backgroundColor = new ColorSetting("BackgroundColor", new Color(0, 0, 0, 100));
     public NumberSetting<Float> outlineWidth = new NumberSetting<>("OutlineWidth", 3F, 0.1F, 5F);
 
 

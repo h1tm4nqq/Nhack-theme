@@ -75,7 +75,7 @@ public class Panel extends PanelBase<IPanelItem> {
         );
         renderer.drawOutlinedRectangle
                 (
-                        x + 108,
+                        x + 103,
                         y - 11.5 - 2,
                         10,
                         10,
@@ -114,7 +114,7 @@ public class Panel extends PanelBase<IPanelItem> {
 
     @Override
     public double getWidth() {
-        return 120F;
+        return 115F;
     }
 
     @Override
@@ -133,7 +133,7 @@ public class Panel extends PanelBase<IPanelItem> {
             if(isHovering(
                     mouseX,
                     mouseY,
-                    getX() + 108,
+                    getX() + 103,
                     getY() - 11.5 - 1,
                     10,
                     10)
