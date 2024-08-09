@@ -1,0 +1,113 @@
+plugins {
+	id 'fabric-loom' version '1.2-SNAPSHOT'
+	id 'maven-publish'
+}
+
+version = project.plugin_version
+group = project.maven_group
+
+configurations {
+	rusherhackApi
+	rusherhackApi.canBeResolved(true)
+	compileOnly.extendsFrom(rusherhackApi)
+}
+
+repositories {
+	// Add repositories to retrieve artifacts from in here.
+	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
+	// for more information about repositories.
+	
+	maven {
+		name = "rusherhack"
+		//releases repository will have the latest api version for last stable rusherhack release
+		//snapshots will always be the latest api version
+		//url = "https://maven.rusherhack.org/releases"
+		url = "https://maven.rusherhack.org/snapshots"
+	}
+	
+	maven {
+		name = 'ParchmentMC'
+		url = 'https://maven.parchmentmc.org'
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	
+	//mojmap + parchment mappings
+	mappings loom.layered() {
+		officialMojangMappings()
+		parchment("org.parchmentmc.data:parchment-1.20.1:2023.07.30@zip")
+	}
+	annotationProcessor 'org.projectlombok:lombok:1.18.30'
+	implementation('org.projectlombok:lombok:1.18.30')
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.30'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+	
+	//rusherhack api
+	rusherhackApi "org.rusherhack:rusherhack-api:$minecraft_version-SNAPSHOT"
+}
+
+loom {
+	
+	//apply accesswidener from rusherhack-api
+	for (final def f in zipTree(this.project.configurations.rusherhackApi.singleFile)) {
+		if (f.name == "rusherhack.accesswidener") {
+			accessWidenerPath = f
+		}
+	}
+	
+	//disable run configs
+	runConfigs.configureEach {
+		ideConfigGenerated = false
+	}
+}
+
+def targetJavaVersion = 17
+tasks.withType(JavaCompile).configureEach {
+	// ensure that the encoding is set to UTF-8, no matter what the system default is
+	// this fixes some edge cases with special characters not displaying correctly
+	// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+	// If Javadoc is generated, this must be specified in that task too.
+	it.options.encoding = "UTF-8"
+	if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+		it.options.release = targetJavaVersion
+	}
+}
+
+java {
+	def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+	if (JavaVersion.current() < javaVersion) {
+		toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+	}
+	archivesBaseName = project.archives_base_name
+}
+
+processResources {
+	inputs.property "plugin_version", project.plugin_version
+	
+	filesMatching("rusherhack-plugin.json") {
+		expand(plugin_version: project.plugin_version)
+	}
+}
+tasks.register("moveJar", Exec){
+	dependsOn 'build'
+	commandLine 'cmd',
+			'/c',
+			'copy',
+			'/Y',
+			'build\\libs\\rushergui-1.0.0.jar',
+			'C:\\Users\\Shadow_Fiend\\Desktop\\cubes\\instances\\1.20.6\\.minecraft\\rusherhack\\plugins'
+	println "Copied jar file to destination folder with replacement"
+}
+
+jar {
+	manifest {
+		//attributes.clear()
+		attributes(
+				"Minecraft-Version": project.minecraft_version
+		)
+	}
+}

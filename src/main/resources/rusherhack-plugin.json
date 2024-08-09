@@ -1,0 +1,13 @@
+{
+  "Plugin-Class": "org.example.theme.ExamplePlugin",
+  "Name": "First external theme",
+  "Version": "${plugin_version}",
+  "Description": "An example theme.",
+  "Authors": [
+    "xyzbtw",
+    "hitmanqq"
+  ],
+  "Minecraft-Versions": [
+    "1.20.6"
+  ]
+}
