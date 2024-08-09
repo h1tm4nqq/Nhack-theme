@@ -24,9 +24,4 @@ public class ExamplePlugin extends Plugin {
 	public void onUnload() {
 		this.getLogger().info("Example plugin unloaded!");
 	}
-
-
-
-
-	
 }

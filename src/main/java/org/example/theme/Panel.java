@@ -1,7 +1,9 @@
 package org.example.theme;
 
+import com.mojang.blaze3d.platform.Window;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.client.Minecraft;
 import org.example.theme.item.items.ModuleItem;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
@@ -55,6 +57,7 @@ public class Panel extends PanelBase<IPanelItem> {
             setX(mouseX + diffX);
             setY(mouseY + diffY);
         }
+
         double x = getX();
         double y = getY();
         final IRenderer2D renderer = RusherHackAPI.getRenderer2D();
@@ -110,6 +113,15 @@ public class Panel extends PanelBase<IPanelItem> {
         return getY() - 13.0 - 2;
     }
 
+    @Override
+    public void setX(double x) {
+        super.setX(Math.max(10, x));
+    }
+
+    @Override
+    public void setY(double y) {
+        super.setY(Math.max(10, y));
+    }
 
     @Override
     public double getWidth() {
