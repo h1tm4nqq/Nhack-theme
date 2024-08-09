@@ -1,23 +1,19 @@
-package org.example.theme;
+package dev.sf.theme;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import org.example.theme.item.items.ModuleItem;
+import dev.sf.theme.item.items.ModuleItem;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.feature.module.ModuleCategory;
-import org.rusherhack.client.api.render.IRenderable2D;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
-import org.rusherhack.client.api.ui.ElementBase;
 import org.rusherhack.client.api.ui.panel.PanelHandlerBase;
-import org.rusherhack.core.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
-import static org.example.theme.Panel.run;
+import static dev.sf.theme.Panel.run;
 
 public class ClickGUIHandler extends PanelHandlerBase<Panel> {
     public ClickGUIHandler(boolean scaledWithMinecraftGui) {
@@ -75,7 +71,7 @@ public class ClickGUIHandler extends PanelHandlerBase<Panel> {
         final boolean building = renderer.isBuilding();
         if(building) renderer.end();
         renderer.begin(matrixStack, this.getFontRenderer());
-        renderer.drawRectangle(0, 0, mc.getWindow().getScreenWidth(), mc.getWindow().getScreenHeight(), ExamplePlugin.theme.backgroundColor.getValueRGB());
+        renderer.drawRectangle(0, 0, mc.getWindow().getScreenWidth(), mc.getWindow().getScreenHeight(), NhackPlugin.theme.backgroundColor.getValueRGB());
         renderer.end();
 
         for(Panel element : this.getElements()) {

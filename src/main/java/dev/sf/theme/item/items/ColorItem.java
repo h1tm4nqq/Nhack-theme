@@ -1,8 +1,8 @@
-package org.example.theme.item.items;
+package dev.sf.theme.item.items;
 
+import dev.sf.theme.NhackPlugin;
 import net.minecraft.ChatFormatting;
-import org.example.theme.ExamplePlugin;
-import org.example.theme.Panel;
+import dev.sf.theme.Panel;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
@@ -82,13 +82,13 @@ public class ColorItem extends ExtendableItem {
         super.render(context, mouseX, mouseY);
         possibleHeightUpdate();
         double x = parent.getX() + 1.5;
-        renderer.drawRectangle(x, getY(), getWidth(), getHeight(), ExamplePlugin.theme.getColorSetting().getValueRGB());
+        renderer.drawRectangle(x, getY(), getWidth(), getHeight(), NhackPlugin.theme.getColorSetting().getValueRGB());
 
         if (isHovering(mouseX, mouseY)) {
             renderer.drawRectangle(x, getY(), getWidth(), getHeight(), new Color(0, 0, 0, 70).getRGB());
         }
 
-        RusherHackAPI.fonts().getFontRenderer().drawText(RusherHackAPI.fonts().getFontRenderer().trimStringToWidth(setting.getDisplayName(), getWidth()), x + 1, getY() + 2, ExamplePlugin.theme.fontColor.getValueRGB(), getWidth(), 1);
+        RusherHackAPI.fonts().getFontRenderer().drawText(RusherHackAPI.fonts().getFontRenderer().trimStringToWidth(setting.getDisplayName(), getWidth()), x + 1, getY() + 2, NhackPlugin.theme.fontColor.getValueRGB(), getWidth(), 1);
         double rectScale = getHeight();
         double rectX = x + getWidth() - rectScale - 15;
         double rectY = (int) getCenter(getY(), getHeight(), rectScale) + 3;

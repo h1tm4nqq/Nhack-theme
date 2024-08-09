@@ -1,4 +1,4 @@
-package org.example.theme;
+package dev.sf.theme;
 
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.plugin.Plugin;
@@ -10,8 +10,8 @@ import java.awt.*;
  *
  * @author xyzbtw and hitmanqq
  */
-public class ExamplePlugin extends Plugin {
-	public static Theme theme = new Theme("FirstExternal", "First external theme!", new Color(148, 141, 252));
+public class NhackPlugin extends Plugin {
+	public static Theme theme = new Theme("Nhack", "Nhack theme", new Color(148, 141, 252));
 	public static ClickGUIHandler handler;
 	
 	@Override
@@ -22,7 +22,7 @@ public class ExamplePlugin extends Plugin {
 	
 	@Override
 	public void onUnload() {
-		this.getLogger().info("Example plugin unloaded!");
+		this.getLogger().info("Nhack plugin unloaded!");
 	}
 
 

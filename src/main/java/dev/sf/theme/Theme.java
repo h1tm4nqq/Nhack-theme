@@ -1,4 +1,4 @@
-package org.example.theme;
+package dev.sf.theme;
 
 import org.jetbrains.annotations.Nullable;
 import org.rusherhack.client.api.setting.ColorSetting;
@@ -55,7 +55,7 @@ public class Theme extends ThemeBase {
 
     @Override
     public @Nullable PanelHandlerBase<?> getClickGuiHandler() {
-        return ExamplePlugin.handler;
+        return NhackPlugin.handler;
     }
 
 

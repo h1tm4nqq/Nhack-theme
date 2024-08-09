@@ -1,9 +1,9 @@
-package org.example.theme.item.items;
+package dev.sf.theme.item.items;
 
+import dev.sf.theme.NhackPlugin;
+import dev.sf.theme.Panel;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.Tuple;
-import org.example.theme.ExamplePlugin;
-import org.example.theme.Panel;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
@@ -28,14 +28,14 @@ import static org.rusherhack.client.api.Globals.mc;
 public class ExtendableItem extends ElementBase implements IPanelItem {
     ExtendableItem parent;
     IModule module;
-    Panel panel;
+    dev.sf.theme.Panel panel;
     Setting setting;
     public double mouseX = 0, mouseY = 0, rendererHeight = 11F;
     public boolean open = true;
     public  IRenderer2D renderer = RusherHackAPI.getRenderer2D();
     public IFontRenderer fontRenderer = RusherHackAPI.fonts().getFontRenderer();
     public List<ExtendableItem> subItems = new ArrayList<>();
-    public ExtendableItem(ExtendableItem parent, IModule module, Panel panel, Setting<?> settingValue) {
+    public ExtendableItem(ExtendableItem parent, IModule module, dev.sf.theme.Panel panel, Setting<?> settingValue) {
         this.parent = parent;
         this.module = module;
         this.panel = panel;
@@ -98,7 +98,7 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
             mesh2D.drawRectangle(x0 - 0.5F, y - 0.5F, maxWidth + 0.5F, offset, new Color(0, 0, 0, 200).getRGB());
 
             for (Tuple<Float, String> pair : pairs) {
-                RusherHackAPI.fonts().getFontRenderer().drawString(pair.getB(), x0, y + pair.getA() - 1F, ExamplePlugin.theme.fontColor.getValue().getRGB());
+                RusherHackAPI.fonts().getFontRenderer().drawString(pair.getB(), x0, y + pair.getA() - 1F, NhackPlugin.theme.fontColor.getValue().getRGB());
             }
             mesh2D.getMatrixStack().popPose();
         };
@@ -132,7 +132,7 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
                 text0,
                 getX() + getWidth() / 2 - RusherHackAPI.fonts().getFontRenderer().getStringWidth(text0) / 2,
                 getY() + getHeight(false) / 2 - RusherHackAPI.fonts().getFontRenderer().getFontHeight() / 2,
-                ExamplePlugin.theme.fontColor.getValueRGB(),
+                NhackPlugin.theme.fontColor.getValueRGB(),
                 getWidth(),
                 1
         );
@@ -145,7 +145,7 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
                         text0,
                         getX() + (getWidth() - 1 - 14) / 2 - RusherHackAPI.fonts().getFontRenderer().getStringWidth(text0) / 2,
                         getY() + getHeight(false) / 2 - RusherHackAPI.fonts().getFontRenderer().getFontHeight() / 2,
-                        ExamplePlugin.theme.fontColor.getValueRGB(),
+                        NhackPlugin.theme.fontColor.getValueRGB(),
                         getWidth(),
                         1
                 );

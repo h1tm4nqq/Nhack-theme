@@ -1,11 +1,8 @@
-package org.example.theme.item.items;
+package dev.sf.theme.item.items;
 
+import dev.sf.theme.NhackPlugin;
 import lombok.Getter;
-import net.minecraft.ChatFormatting;
-import org.example.theme.ExamplePlugin;
-import org.example.theme.Panel;
-import org.example.theme.Theme;
-import org.rusherhack.client.api.RusherHackAPI;
+import dev.sf.theme.Panel;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.core.setting.NumberSetting;
@@ -47,11 +44,11 @@ public class NumberItem extends ExtendableItem {
         setRenderWidth((getWidth() - 4) * partialMultiplier());
 
         renderer.drawRectangleOutline(getX(), getY(), getWidth(), getHeight(false),
-                ExamplePlugin.theme.outlineWidth.getValue(),
-                ExamplePlugin.theme.outlineColor.getValueRGB());
+                NhackPlugin.theme.outlineWidth.getValue(),
+                NhackPlugin.theme.outlineColor.getValueRGB());
 
         renderer.drawRectangle(getX() + 2, getY() + 2, getRenderWidth(), getHeight(false) -4,
-                ExamplePlugin.theme.getColorSetting().getValue().getRGB());
+                NhackPlugin.theme.getColorSetting().getValue().getRGB());
 
 
 

@@ -1,12 +1,11 @@
-package org.example.theme.item.items;
+package dev.sf.theme.item.items;
 
-import org.example.theme.ExamplePlugin;
-import org.example.theme.Panel;
-import org.example.theme.Theme;
+import dev.sf.theme.NhackPlugin;
+import dev.sf.theme.Panel;
+import dev.sf.theme.Theme;
 import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
-import org.rusherhack.client.api.feature.module.ToggleableModule;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.core.setting.BooleanSetting;
@@ -14,7 +13,7 @@ import org.rusherhack.core.setting.BooleanSetting;
 import java.awt.*;
 
 public class BooleanItem extends ExtendableItem {
-    public BooleanItem(IModule module, Panel panel, ExtendableItem parent, BooleanSetting setting) {
+    public BooleanItem(IModule module, dev.sf.theme.Panel panel, ExtendableItem parent, BooleanSetting setting) {
         super(parent, module, panel, setting);
         this.panel = panel;
         this.module = module;
@@ -43,11 +42,11 @@ public class BooleanItem extends ExtendableItem {
                 getY(),
                 subItems.isEmpty() ? getWidth() : getWidth() - 14 - 1,
                 getHeight(),
-                ExamplePlugin.theme.outlineWidth.getValue(),
+                NhackPlugin.theme.outlineWidth.getValue(),
                 setting.getValue()
-                ? ExamplePlugin.theme.getColorSetting().getValue().getRGB()
-                : Theme.changeAlpha(ExamplePlugin.theme.getColorSetting().getValue().getRGB(), 100),
-                ExamplePlugin.theme.outlineColor.getValueRGB());
+                ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
+                : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                NhackPlugin.theme.outlineColor.getValueRGB());
 
         if(!subItems.isEmpty()) {
             renderer.drawOutlinedRectangle(
@@ -55,11 +54,11 @@ public class BooleanItem extends ExtendableItem {
                     getY(),
                     13,
                     getHeight(),
-                    ExamplePlugin.theme.outlineWidth.getValue(),
+                    NhackPlugin.theme.outlineWidth.getValue(),
                     open
-                    ? ExamplePlugin.theme.getColorSetting().getValue().getRGB()
-                    : Theme.changeAlpha(ExamplePlugin.theme.getColorSetting().getValue().getRGB(), 100),
-                    ExamplePlugin.theme.outlineColor.getValueRGB());
+                    ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
+                    : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                    NhackPlugin.theme.outlineColor.getValueRGB());
         }
 
 

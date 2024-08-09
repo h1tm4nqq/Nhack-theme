@@ -1,9 +1,8 @@
-package org.example.theme.item.items;
+package dev.sf.theme.item.items;
 
-import net.minecraft.ChatFormatting;
-import org.example.theme.ExamplePlugin;
-import org.example.theme.Panel;
-import org.example.theme.Theme;
+import dev.sf.theme.NhackPlugin;
+import dev.sf.theme.Panel;
+import dev.sf.theme.Theme;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
@@ -40,9 +39,9 @@ public class StringItem extends ExtendableItem{
     public void render(RenderContext context, double mouseX, double mouseY) {
         super.render(context, mouseX, mouseY);
         renderer.drawOutlinedRectangle(getX(), getY(), getWidth(), getHeight(),
-                ExamplePlugin.theme.outlineWidth.getValue(),
-                Theme.changeAlpha(ExamplePlugin.theme.getColorSetting().getValue().getRGB(), 100),
-                ExamplePlugin.theme.outlineColor.getValueRGB());
+                NhackPlugin.theme.outlineWidth.getValue(),
+                Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                NhackPlugin.theme.outlineColor.getValueRGB());
         if(isHovering(mouseX, mouseY)) {
             renderer.drawRectangle(getX(), getY(), getWidth(), getHeight(false), new Color(0,0,0, 70).getRGB());
         }
@@ -53,8 +52,8 @@ public class StringItem extends ExtendableItem{
         if (listening) {
             RusherHackAPI.fonts().getFontRenderer().drawText(getIdleSign(),
             RusherHackAPI.fonts().getFontRenderer().getStringWidth(setting.getDisplayName() + ": " + (listening ? str.toString() : setting.getValue())),
-                    getY() + ExamplePlugin.theme.x.getValue(),
-                    ExamplePlugin.theme.fontColor.getValueRGB(), getWidth(), 1);
+                    getY() + NhackPlugin.theme.x.getValue(),
+                    NhackPlugin.theme.fontColor.getValueRGB(), getWidth(), 1);
         }
 
         renderSubItems(context, mouseX, mouseY, subItems, open);

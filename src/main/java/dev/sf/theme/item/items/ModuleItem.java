@@ -1,13 +1,11 @@
-package org.example.theme.item.items;
+package dev.sf.theme.item.items;
 
-import net.minecraft.ChatFormatting;
-import org.example.theme.ExamplePlugin;
-import org.example.theme.Panel;
-import org.example.theme.Theme;
+import dev.sf.theme.NhackPlugin;
+import dev.sf.theme.Panel;
+import dev.sf.theme.Theme;
 import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
-import org.rusherhack.client.api.feature.module.Module;
 import org.rusherhack.client.api.feature.module.ToggleableModule;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
@@ -74,9 +72,9 @@ public class ModuleItem extends ExtendableItem {
                 getY(),
                 getWidth() - 1 - 16,
                 getHeight(false),
-                ExamplePlugin.theme.outlineWidth.getValue(),
-                isToggled ? ExamplePlugin.theme.getColorSetting().getValue().getRGB() : Theme.changeAlpha(ExamplePlugin.theme.getColorSetting().getValue().getRGB(), 100),
-                ExamplePlugin.theme.categoryLineColor.getValueRGB()
+                NhackPlugin.theme.outlineWidth.getValue(),
+                isToggled ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                NhackPlugin.theme.categoryLineColor.getValueRGB()
         );
 
         renderer.drawOutlinedRectangle(
@@ -84,9 +82,9 @@ public class ModuleItem extends ExtendableItem {
                 getY(),
                 13,
                 getHeight(false),
-                ExamplePlugin.theme.outlineWidth.getValue(),
-                !subItems.isEmpty() && open ? ExamplePlugin.theme.getColorSetting().getValue().getRGB() : Theme.changeAlpha(ExamplePlugin.theme.getColorSetting().getValue().getRGB(), 100),
-                ExamplePlugin.theme.categoryLineColor.getValueRGB()
+                NhackPlugin.theme.outlineWidth.getValue(),
+                !subItems.isEmpty() && open ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                NhackPlugin.theme.categoryLineColor.getValueRGB()
         );
 
 
@@ -114,8 +112,8 @@ public class ModuleItem extends ExtendableItem {
 //            );
 //        }
 
-        if(ExamplePlugin.theme.settingsOutline.getValue() && open){
-            renderer.drawOutlinedRectangle(getX(), getY() + getHeight(false), getWidth(), getHeight(true) - getHeight(false), 2.5f, new Color(0,0,0,0.5f).getRGB(), ExamplePlugin.theme.outlineColor.getValueRGB());
+        if(NhackPlugin.theme.settingsOutline.getValue() && open){
+            renderer.drawOutlinedRectangle(getX(), getY() + getHeight(false), getWidth(), getHeight(true) - getHeight(false), 2.5f, new Color(0,0,0,0.5f).getRGB(), NhackPlugin.theme.outlineColor.getValueRGB());
         }
 
         renderSubItems(context, mouseX, mouseY, subItems, open);
@@ -134,7 +132,7 @@ public class ModuleItem extends ExtendableItem {
         RusherHackAPI.fonts().getFontRenderer().drawText(module.getName(),
                 getX() + (getWidth() - 1 - 16) / 2 - RusherHackAPI.fonts().getFontRenderer().getStringWidth(module.getName()) / 2,
                 getY() + getHeight(false) / 2 - RusherHackAPI.fonts().getFontRenderer().getFontHeight() / 2,
-                ExamplePlugin.theme.fontColor.getValue().getRGB(), getWidth(), 1);
+                NhackPlugin.theme.fontColor.getValue().getRGB(), getWidth(), 1);
     }
 
     @Override

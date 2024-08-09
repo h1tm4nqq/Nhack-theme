@@ -1,8 +1,8 @@
-package org.example.theme;
+package dev.sf.theme;
 
+import dev.sf.theme.item.items.ModuleItem;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.theme.item.items.ModuleItem;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
@@ -62,15 +62,15 @@ public class Panel extends PanelBase<IPanelItem> {
         renderer.drawOutlinedRectangle
         (
                 x, getYTop(),
-                getWidth(), 13.0, ExamplePlugin.theme.outlineWidth.getValue(),
-                ExamplePlugin.theme.categoryColor.getValueRGB(), ExamplePlugin.theme.categoryLineColor.getValueRGB()
+                getWidth(), 13.0, NhackPlugin.theme.outlineWidth.getValue(),
+                NhackPlugin.theme.categoryColor.getValueRGB(), NhackPlugin.theme.categoryLineColor.getValueRGB()
         );
         getFontRenderer().drawString
         (
                 category,
                 x + 2,
                 y - 9.5 - 2,
-                ExamplePlugin.theme.fontColor.getValue().getRGB()
+                NhackPlugin.theme.fontColor.getValue().getRGB()
         );
         renderer.drawOutlinedRectangle
                 (
@@ -78,10 +78,10 @@ public class Panel extends PanelBase<IPanelItem> {
                         y - 11.5 - 2,
                         10,
                         10,
-                        ExamplePlugin.theme.outlineWidth.getValue(),
+                        NhackPlugin.theme.outlineWidth.getValue(),
                      !open
-                             ? new Color(ExamplePlugin.theme.getColorSetting().getValue().getRed(), ExamplePlugin.theme.getColorSetting().getValue().getGreen(), ExamplePlugin.theme.getColorSetting().getValue().getBlue(), 100).getRGB()
-                             : ExamplePlugin.theme.getColorSetting().getValue().getRGB(), ExamplePlugin.theme.categoryLineColor.getValueRGB()
+                             ? new Color(NhackPlugin.theme.getColorSetting().getValue().getRed(), NhackPlugin.theme.getColorSetting().getValue().getGreen(), NhackPlugin.theme.getColorSetting().getValue().getBlue(), 100).getRGB()
+                             : NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.categoryLineColor.getValueRGB()
                 );
 
         if (open) {
@@ -89,9 +89,9 @@ public class Panel extends PanelBase<IPanelItem> {
                 renderer.drawOutlinedRectangle
                 (
                         x, y,
-                        getWidth(), height + 1.5F, ExamplePlugin.theme.outlineWidth.getValue(),
-                        ExamplePlugin.theme.backColor.getValueRGB(),
-                        ExamplePlugin.theme.outlineColor.getValueRGB()
+                        getWidth(), height + 1.5F, NhackPlugin.theme.outlineWidth.getValue(),
+                        NhackPlugin.theme.backColor.getValueRGB(),
+                        NhackPlugin.theme.outlineColor.getValueRGB()
                 );
             }
             double y0 = y + 2;
@@ -141,7 +141,7 @@ public class Panel extends PanelBase<IPanelItem> {
                 return false;
             }
             if (button == 0) {
-                ExamplePlugin.theme.getClickGuiHandler().getElements().forEach(element -> drag = false);
+                NhackPlugin.theme.getClickGuiHandler().getElements().forEach(element -> drag = false);
                 diffX = getX() - mouseX;
                 diffY = getY() - mouseY;
                 drag = true;
@@ -161,9 +161,9 @@ public class Panel extends PanelBase<IPanelItem> {
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
         //if(isHovering(mouseX, mouseY, getX(), getY() - 14.5F, getWidth(), getHeight())) {
         if (delta >= 0) {
-            setY(getY() + ExamplePlugin.theme.scrollSpeed.getValue());
+            setY(getY() + NhackPlugin.theme.scrollSpeed.getValue());
         } else {
-            setY(getY() - ExamplePlugin.theme.scrollSpeed.getValue());
+            setY(getY() - NhackPlugin.theme.scrollSpeed.getValue());
         }
         //   }
         return false;
