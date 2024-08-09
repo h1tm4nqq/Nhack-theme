@@ -1,4 +1,4 @@
-package dev.sf.theme.item.items;
+package dev.sf.theme.items;
 
 import dev.sf.theme.NhackPlugin;
 import lombok.Getter;

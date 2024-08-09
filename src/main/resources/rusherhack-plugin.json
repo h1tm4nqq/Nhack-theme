@@ -1,8 +1,8 @@
 {
-  "Plugin-Class": "org.example.theme.ExamplePlugin",
-  "Name": "First external theme",
+  "Plugin-Class": "dev.sf.theme.NhackPlugin",
+  "Name": "Nhack",
   "Version": "${plugin_version}",
-  "Description": "An example theme.",
+  "Description": "A Nhack theme.",
   "Authors": [
     "xyzbtw",
     "hitmanqq"

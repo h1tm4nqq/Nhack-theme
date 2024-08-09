@@ -1,12 +1,13 @@
 package dev.sf.theme;
 
-import dev.sf.theme.item.items.ModuleItem;
+import dev.sf.theme.items.ModuleItem;
 import lombok.Getter;
 import lombok.Setter;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
+import org.rusherhack.client.api.render.font.IFontRenderer;
 import org.rusherhack.client.api.ui.panel.IPanelItem;
 import org.rusherhack.client.api.ui.panel.PanelBase;
 import org.rusherhack.client.api.ui.panel.PanelHandlerBase;
@@ -80,7 +81,7 @@ public class Panel extends PanelBase<IPanelItem> {
                         10,
                         NhackPlugin.theme.outlineWidth.getValue(),
                      !open
-                             ? new Color(NhackPlugin.theme.getColorSetting().getValue().getRed(), NhackPlugin.theme.getColorSetting().getValue().getGreen(), NhackPlugin.theme.getColorSetting().getValue().getBlue(), 100).getRGB()
+                             ? new Color(NhackPlugin.theme.getColorSetting().getValue().getRed(), NhackPlugin.theme.getColorSetting().getValue().getGreen(), NhackPlugin.theme.getColorSetting().getValue().getBlue(), NhackPlugin.theme.alpha.getValue()).getRGB()
                              : NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.categoryLineColor.getValueRGB()
                 );
 
@@ -168,7 +169,10 @@ public class Panel extends PanelBase<IPanelItem> {
         //   }
         return false;
     }
-
+    @Override
+    public IFontRenderer getFontRenderer() {
+        return NhackPlugin.theme.forceVanilla.getValue() ? RusherHackAPI.fonts().getVanillaFontRenderer() : super.getFontRenderer();
+    }
     public boolean isHovering(double mouseX, double mouseY, double x, double y, double width, double height) {
         return x < mouseX && width + x > mouseX && y < mouseY && height + y > mouseY;
     }

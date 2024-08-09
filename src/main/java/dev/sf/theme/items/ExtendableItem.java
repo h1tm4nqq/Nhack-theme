@@ -1,4 +1,4 @@
-package dev.sf.theme.item.items;
+package dev.sf.theme.items;
 
 import dev.sf.theme.NhackPlugin;
 import dev.sf.theme.Panel;
@@ -33,7 +33,8 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
     public double mouseX = 0, mouseY = 0, rendererHeight = 11F;
     public boolean open = true;
     public  IRenderer2D renderer = RusherHackAPI.getRenderer2D();
-    public IFontRenderer fontRenderer = RusherHackAPI.fonts().getFontRenderer();
+
+    public IFontRenderer fontRenderer = getFontRenderer();
     public List<ExtendableItem> subItems = new ArrayList<>();
     public ExtendableItem(ExtendableItem parent, IModule module, dev.sf.theme.Panel panel, Setting<?> settingValue) {
         this.parent = parent;
@@ -82,13 +83,13 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
         Runnable runnable = () -> {
             mesh2D.getMatrixStack().pushPose();
             mesh2D.getMatrixStack().translate(0F, 0F, 200F);
-            IFontRenderer fontRenderer = RusherHackAPI.fonts().getFontRenderer();
+            IFontRenderer fontRenderer = getFontRenderer();
             List<Tuple<Float, String>> pairs = new ArrayList<>();
             String[] lines = text.split("\n");
             float offset = 0;
             for (String s : lines) {
                 pairs.add(new Tuple<>(offset, s));
-                offset += (float) RusherHackAPI.fonts().getFontRenderer().getFontHeight() + 0.3f;
+                offset += (float) getFontRenderer().getFontHeight() + 0.3f;
             }
             double maxWidth = Arrays.stream(lines)
                     .map(fontRenderer::getStringWidth)
@@ -98,7 +99,7 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
             mesh2D.drawRectangle(x0 - 0.5F, y - 0.5F, maxWidth + 0.5F, offset, new Color(0, 0, 0, 200).getRGB());
 
             for (Tuple<Float, String> pair : pairs) {
-                RusherHackAPI.fonts().getFontRenderer().drawString(pair.getB(), x0, y + pair.getA() - 1F, NhackPlugin.theme.fontColor.getValue().getRGB());
+                getFontRenderer().drawString(pair.getB(), x0, y + pair.getA() - 1F, NhackPlugin.theme.fontColor.getValue().getRGB());
             }
             mesh2D.getMatrixStack().popPose();
         };
@@ -126,12 +127,12 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
     }
 
     public void drawText(String text) {
-        String text0 = RusherHackAPI.fonts().getFontRenderer().trimStringToWidth(text, getWidth());
-        RusherHackAPI.fonts().getFontRenderer().drawText
+        String text0 = getFontRenderer().trimStringToWidth(text, getWidth());
+        getFontRenderer().drawText
         (
                 text0,
-                getX() + getWidth() / 2 - RusherHackAPI.fonts().getFontRenderer().getStringWidth(text0) / 2,
-                getY() + getHeight(false) / 2 - RusherHackAPI.fonts().getFontRenderer().getFontHeight() / 2,
+                getX() + getWidth() / 2 - getFontRenderer().getStringWidth(text0) / 2,
+                getY() + getHeight(false) / 2 - getFontRenderer().getFontHeight() / 2,
                 NhackPlugin.theme.fontColor.getValueRGB(),
                 getWidth(),
                 1
@@ -139,12 +140,12 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
     }
 
     public void drawTextEx(String text) {
-        String text0 = RusherHackAPI.fonts().getFontRenderer().trimStringToWidth(text, getWidth());
-        RusherHackAPI.fonts().getFontRenderer().drawText
+        String text0 = getFontRenderer().trimStringToWidth(text, getWidth());
+        getFontRenderer().drawText
                 (
                         text0,
-                        getX() + (getWidth() - 1 - 14) / 2 - RusherHackAPI.fonts().getFontRenderer().getStringWidth(text0) / 2,
-                        getY() + getHeight(false) / 2 - RusherHackAPI.fonts().getFontRenderer().getFontHeight() / 2,
+                        getX() + (getWidth() - 1 - 14) / 2 - getFontRenderer().getStringWidth(text0) / 2,
+                        getY() + getHeight(false) / 2 - getFontRenderer().getFontHeight() / 2,
                         NhackPlugin.theme.fontColor.getValueRGB(),
                         getWidth(),
                         1
@@ -277,5 +278,8 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
             temp += subItems.stream().mapToDouble(i -> i.setting.isHidden() ? 0 : (i.getHeight(true) + 3)).sum();
         rendererHeight = temp;
     }
-
+    @Override
+    public IFontRenderer getFontRenderer() {
+        return NhackPlugin.theme.forceVanilla.getValue() ? RusherHackAPI.fonts().getVanillaFontRenderer() : IPanelItem.super.getFontRenderer();
+    }
 }

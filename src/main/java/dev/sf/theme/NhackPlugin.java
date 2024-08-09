@@ -11,7 +11,7 @@ import java.awt.*;
  * @author xyzbtw and hitmanqq
  */
 public class NhackPlugin extends Plugin {
-	public static Theme theme = new Theme("Nhack", "Nhack theme", new Color(148, 141, 252));
+	public static Theme theme = new Theme("Nhack", "Nhack theme", new Color(60, 200, 200));
 	public static ClickGUIHandler handler;
 	
 	@Override

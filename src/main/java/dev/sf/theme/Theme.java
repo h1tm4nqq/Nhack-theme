@@ -10,14 +10,25 @@ import org.rusherhack.core.setting.NumberSetting;
 import java.awt.*;
 
 public class Theme extends ThemeBase {
+
+
+
+    public NumberSetting<Integer> alpha = new NumberSetting<>("Alpha", 128, 0, 255);
     public ColorSetting fontColor = new ColorSetting("FontColor", new Color(255, 255, 255));
-    public ColorSetting categoryColor = new ColorSetting("CategoryColor", new Color(112, 104, 255));
-    public ColorSetting categoryLineColor = new ColorSetting("CategoryLineColor", new Color(112, 104, 255));
+    public BooleanSetting forceVanilla = new BooleanSetting("ForceVanilla", true);
+    public ColorSetting categoryColor = new ColorSetting("CategoryColor", new Color(60, 200, 200, 128));
+    public ColorSetting categoryLineColor = new ColorSetting("CategoryLineColor", Color.WHITE);
+
     public ColorSetting backColor = new ColorSetting("BackColor", new Color(0, 0, 0, 150));
-    public ColorSetting outlineColor = new ColorSetting("OutlineColor", new Color(145, 145, 145, 100));
-    public ColorSetting moduleOutlineColor = new ColorSetting("ModuleOutlineColor", new Color(145, 145, 145, 100));
-    public ColorSetting backgroundColor = new ColorSetting("BackgroundColor", new Color(0, 0, 0, 100));
+
+    public BooleanSetting settingsOutline = new BooleanSetting("SettingsOutline", false);
+    public ColorSetting moduleOutlineColor = new ColorSetting("ModuleOutlineColor", new Color(145, 145, 145, NhackPlugin.theme.alpha.getValue()));
+    public ColorSetting outlineColor = new ColorSetting("OutlineColor", Color.WHITE);
+
+    public ColorSetting backgroundColor = new ColorSetting("BackgroundColor", new Color(0, 0, 0, NhackPlugin.theme.alpha.getValue()));
     public NumberSetting<Float> outlineWidth = new NumberSetting<>("OutlineWidth", 3F, 0.1F, 5F);
+
+
     public NumberSetting<Float> scrollSpeed = new NumberSetting<>("ScrollSpeed", 15F, 1F, 20F);
 
     public NumberSetting<Float> x = new NumberSetting<>("X", 0F, -200F, 200F);
@@ -28,21 +39,28 @@ public class Theme extends ThemeBase {
     public NumberSetting<Float> y2 = new NumberSetting<>("Y2", 0F, -200F, 200F);
 
 
-    public BooleanSetting settingsOutline = new BooleanSetting("SettingsOutline", false);
+
 
     public Theme(String name, String description, Color defaultColor) {
         super(name, description, defaultColor);
-        getColorSetting().setValue(new Color(112, 104, 255));
+        getColorSetting().setValue(new Color(60, 200, 200, 255));
         registerSettings(
-                categoryColor,
+                alpha,
+
                 fontColor,
+                forceVanilla,
+
+                categoryColor,
                 backColor,
+
+                settingsOutline,
+                categoryLineColor,
                 outlineColor,
                 moduleOutlineColor,
-                categoryLineColor,
-                settingsOutline,
                 outlineWidth,
+
                 backgroundColor,
+
                 scrollSpeed,
                 x,
                 y,

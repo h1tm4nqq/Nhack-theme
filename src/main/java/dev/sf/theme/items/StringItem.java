@@ -1,4 +1,4 @@
-package dev.sf.theme.item.items;
+package dev.sf.theme.items;
 
 import dev.sf.theme.NhackPlugin;
 import dev.sf.theme.Panel;
@@ -40,20 +40,23 @@ public class StringItem extends ExtendableItem{
         super.render(context, mouseX, mouseY);
         renderer.drawOutlinedRectangle(getX(), getY(), getWidth(), getHeight(),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
         if(isHovering(mouseX, mouseY)) {
             renderer.drawRectangle(getX(), getY(), getWidth(), getHeight(false), new Color(0,0,0, 70).getRGB());
         }
 
 
-        drawText(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
+
 
         if (listening) {
-            RusherHackAPI.fonts().getFontRenderer().drawText(getIdleSign(),
-            RusherHackAPI.fonts().getFontRenderer().getStringWidth(setting.getDisplayName() + ": " + (listening ? str.toString() : setting.getValue())),
+            getFontRenderer().drawText(getIdleSign(),
+            getFontRenderer().getStringWidth(setting.getDisplayName() + ": " + (listening ? str.toString() : setting.getValue())),
                     getY() + NhackPlugin.theme.x.getValue(),
                     NhackPlugin.theme.fontColor.getValueRGB(), getWidth(), 1);
+            drawText(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
+        } else {
+            drawText(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
         }
 
         renderSubItems(context, mouseX, mouseY, subItems, open);

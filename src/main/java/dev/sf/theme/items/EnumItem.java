@@ -1,4 +1,4 @@
-package dev.sf.theme.item.items;
+package dev.sf.theme.items;
 
 import dev.sf.theme.NhackPlugin;
 import dev.sf.theme.Panel;
@@ -32,7 +32,7 @@ public class EnumItem extends ExtendableItem{
                 subItems.isEmpty() ? getWidth() : getWidth() - 14 - 1,
                 getHeight(),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
 
         if(!subItems.isEmpty()) {
@@ -44,7 +44,7 @@ public class EnumItem extends ExtendableItem{
                     NhackPlugin.theme.outlineWidth.getValue(),
                     open
                             ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                            : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                            : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                     NhackPlugin.theme.outlineColor.getValueRGB());
         }
 

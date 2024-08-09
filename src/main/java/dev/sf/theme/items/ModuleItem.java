@@ -1,4 +1,4 @@
-package dev.sf.theme.item.items;
+package dev.sf.theme.items;
 
 import dev.sf.theme.NhackPlugin;
 import dev.sf.theme.Panel;
@@ -63,7 +63,7 @@ public class ModuleItem extends ExtendableItem {
     public void render(RenderContext context, double mouseX, double mouseY) {
         super.render(context, mouseX, mouseY);
         final IRenderer2D renderer = RusherHackAPI.getRenderer2D();
-        final IFontRenderer fontRenderer = RusherHackAPI.fonts().getFontRenderer();
+        final IFontRenderer fontRenderer = getFontRenderer();
         boolean isToggled = !(module instanceof ToggleableModule) || ((ToggleableModule) module).isToggled();
         
 
@@ -73,7 +73,7 @@ public class ModuleItem extends ExtendableItem {
                 getWidth() - 1 - 16,
                 getHeight(false),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                isToggled ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                isToggled ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.categoryLineColor.getValueRGB()
         );
 
@@ -83,7 +83,7 @@ public class ModuleItem extends ExtendableItem {
                 13,
                 getHeight(false),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                !subItems.isEmpty() && open ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                !subItems.isEmpty() && open ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.categoryLineColor.getValueRGB()
         );
 
@@ -129,9 +129,9 @@ public class ModuleItem extends ExtendableItem {
 //            drawDesc(renderer, mouseX + 8,mouseY + 8, description);
 //        }
 
-        RusherHackAPI.fonts().getFontRenderer().drawText(module.getName(),
-                getX() + (getWidth() - 1 - 16) / 2 - RusherHackAPI.fonts().getFontRenderer().getStringWidth(module.getName()) / 2,
-                getY() + getHeight(false) / 2 - RusherHackAPI.fonts().getFontRenderer().getFontHeight() / 2,
+        getFontRenderer().drawText(module.getName(),
+                getX() + (getWidth() - 1 - 16) / 2 - getFontRenderer().getStringWidth(module.getName()) / 2,
+                getY() + getHeight(false) / 2 - getFontRenderer().getFontHeight() / 2,
                 NhackPlugin.theme.fontColor.getValue().getRGB(), getWidth(), 1);
     }
 

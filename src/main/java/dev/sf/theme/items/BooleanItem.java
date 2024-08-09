@@ -1,4 +1,4 @@
-package dev.sf.theme.item.items;
+package dev.sf.theme.items;
 
 import dev.sf.theme.NhackPlugin;
 import dev.sf.theme.Panel;
@@ -45,7 +45,7 @@ public class BooleanItem extends ExtendableItem {
                 NhackPlugin.theme.outlineWidth.getValue(),
                 setting.getValue()
                 ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
 
         if(!subItems.isEmpty()) {
@@ -57,7 +57,7 @@ public class BooleanItem extends ExtendableItem {
                     NhackPlugin.theme.outlineWidth.getValue(),
                     open
                     ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                    : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), 100),
+                    : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                     NhackPlugin.theme.outlineColor.getValueRGB());
         }
 

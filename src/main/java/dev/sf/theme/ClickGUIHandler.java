@@ -1,7 +1,7 @@
 package dev.sf.theme;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.sf.theme.item.items.ModuleItem;
+import dev.sf.theme.items.ModuleItem;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.feature.module.ModuleCategory;

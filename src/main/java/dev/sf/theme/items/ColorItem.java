@@ -1,4 +1,4 @@
-package dev.sf.theme.item.items;
+package dev.sf.theme.items;
 
 import dev.sf.theme.NhackPlugin;
 import net.minecraft.ChatFormatting;
@@ -88,7 +88,7 @@ public class ColorItem extends ExtendableItem {
             renderer.drawRectangle(x, getY(), getWidth(), getHeight(), new Color(0, 0, 0, 70).getRGB());
         }
 
-        RusherHackAPI.fonts().getFontRenderer().drawText(RusherHackAPI.fonts().getFontRenderer().trimStringToWidth(setting.getDisplayName(), getWidth()), x + 1, getY() + 2, NhackPlugin.theme.fontColor.getValueRGB(), getWidth(), 1);
+        getFontRenderer().drawText(getFontRenderer().trimStringToWidth(setting.getDisplayName(), getWidth()), x + 1, getY() + 2, NhackPlugin.theme.fontColor.getValueRGB(), getWidth(), 1);
         double rectScale = getHeight();
         double rectX = x + getWidth() - rectScale - 15;
         double rectY = (int) getCenter(getY(), getHeight(), rectScale) + 3;
@@ -214,7 +214,7 @@ public class ColorItem extends ExtendableItem {
             }
             posYRainbow = !small ? aPickerY + 9 : svPickerY + svPickerHeight + 1;
             //renderer.drawRectangle(x, posYRainbow, getWidth() - 1, getHeight(), isHovering(mouseX, mouseY, x, posYRainbow, x + getWidth(), posYRainbow + getHeight()) ? new Color(0, 0, 0, 70).getRGB() : ExamplePlugin.theme.getColorSetting().getValueRGB());
-            //RusherHackAPI.fonts().getFontRenderer().drawText(RusherHackAPI.fonts().getFontRenderer().trimStringToWidth("ColorMode: " + colorMode.name(), getWidth()), x + 3.5, posYRainbow, ExamplePlugin.theme.fontColor.getValueRGB(), getWidth(), getHeight());
+            //getFontRenderer().drawText(getFontRenderer().trimStringToWidth("ColorMode: " + colorMode.name(), getWidth()), x + 3.5, posYRainbow, ExamplePlugin.theme.fontColor.getValueRGB(), getWidth(), getHeight());
             if (sChanging) {
                 setSettingFromX(mouseX);
             }
