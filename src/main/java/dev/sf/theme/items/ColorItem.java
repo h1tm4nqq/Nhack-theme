@@ -1,8 +1,10 @@
 package dev.sf.theme.items;
 
 import dev.sf.theme.NhackPlugin;
+import dev.sf.theme.Theme;
 import net.minecraft.ChatFormatting;
 import dev.sf.theme.Panel;
+import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
@@ -47,10 +49,10 @@ public class ColorItem extends ExtendableItem {
 
     ColorSetting.RainbowMode colorMode;
     Pattern pattern = Pattern.compile("(?<=ColorItem\\[).+(?=])");
-    private final double svPickerWidth;
-    private final double hPickerWidth;
-    private final double aPickerWidth;
-    private final double hCursorX;
+    private double svPickerWidth;
+    private double hPickerWidth;
+    private double aPickerWidth;
+    private double hCursorX;
     boolean changed = false;
     double h = 0;
     double rainbow = 0;
@@ -59,20 +61,20 @@ public class ColorItem extends ExtendableItem {
     // positions
     private double svPickerX;
     private double svPickerY;
-    private final double svPickerHeight;
+    private double svPickerHeight;
     private double hPickerX;
     private double hPickerY;
-    private final double hPickerHeight;
+    private double hPickerHeight;
     private double aPickerX;
     private double aPickerY;
-    private final double aPickerHeight;
+    private double aPickerHeight;
     // cursor
     private double svCursorX, svCursorY;
     private double hCursorY;
     private double aCursorX;
     private double renderHeight;
     private double prevHeight;
-    private final double aCursorY;
+    private double aCursorY;
     private boolean svChanging, hChanging, aChanging, sChanging, small = false;
     double posYRainbow;
 
@@ -82,22 +84,53 @@ public class ColorItem extends ExtendableItem {
         super.render(context, mouseX, mouseY);
         possibleHeightUpdate();
         double x = parent.getX() + 1.5;
-        renderer.drawRectangle(x, getY(), getWidth(), getHeight(), NhackPlugin.theme.getColorSetting().getValueRGB());
 
         if (isHovering(mouseX, mouseY)) {
             renderer.drawRectangle(x, getY(), getWidth(), getHeight(), new Color(0, 0, 0, 70).getRGB());
         }
+        this.svPickerWidth = getWidth() - 14;
+        this.svPickerHeight = getWidth() - 14;
 
-        getFontRenderer().drawText(getFontRenderer().trimStringToWidth(setting.getDisplayName(), getWidth()), x + 1, getY() + 2, NhackPlugin.theme.fontColor.getValueRGB(), getWidth(), 1);
-        double rectScale = getHeight();
-        double rectX = x + getWidth() - rectScale - 15;
-        double rectY = (int) getCenter(getY(), getHeight(), rectScale) + 3;
+        this.hPickerWidth = 6;
+        this.hPickerHeight = getWidth() - 14;
 
-        renderer.drawRectangle(rectX - 1.3F, rectY - 1.3F, 25, 8.5F, Color.BLACK.getRGB());
-        renderer.drawRectangle(rectX - 0.7F, rectY - 0.7F, 24, 7.5F, Color.WHITE.getRGB());
-        renderer.drawRectangle(rectX - 0.7F, rectY - 0.7F, 24, 7.5F, ((ColorSetting) setting).getValueRGB());
+        this.aPickerWidth = getWidth() - 14;
+        this.aPickerHeight = 6;
+        renderer.drawOutlinedRectangle(
+                getX(),
+                getY(),
+                getWidth() - 14 - 1,
+                getHeight(),
+                NhackPlugin.theme.outlineWidth.getValue(),
+                Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                NhackPlugin.theme.outlineColor.getValueRGB());
 
+        renderer.drawOutlinedRectangle(
+                getX() + (getWidth() - 14) + 1,
+                getY(),
+                13,
+                getHeight(),
+                NhackPlugin.theme.outlineWidth.getValue(),
+                isOpenPicker
+                        ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
+                        : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                NhackPlugin.theme.outlineColor.getValueRGB());
 
+        drawTextEx(setting.getDisplayName());
+
+        double rectX = getX() + (getWidth() - 14 - 1) - 12 - 1;
+        double rectY = getY() + 1;
+
+        renderer.drawRectangle(rectX, rectY, 12, 12, Color.WHITE.getRGB());
+        renderer.drawOutlinedRectangle(
+                rectX,
+                rectY,
+                12,
+                12,
+                1.5F,
+                ((Color) setting.getValue()).getRGB(),
+                Color.BLACK.getRGB()
+        );
         if (isOpenPicker || getHeight() > 14) {
             Color c = ((ColorSetting) this.setting).getValue();
             double pickerX = x + 1.5F;
@@ -219,30 +252,6 @@ public class ColorItem extends ExtendableItem {
                 setSettingFromX(mouseX);
             }
         }
-
-
-        if (isHovering(
-                mouseX,
-                mouseY,
-                x,
-                getY(),
-                x + getWidth(),
-                getY() + getHeight()
-        )) {
-            String description =
-                    ChatFormatting.RED + "Red " + ((ColorSetting) setting).getValue().getRed() +
-                            ChatFormatting.GREEN + " Green " + ((ColorSetting) setting).getValue().getGreen() +
-                            ChatFormatting.BLUE + " Blue " + ((ColorSetting) setting).getValue().getBlue() +
-                            (!small ? ChatFormatting.WHITE + " Alpha " + ((ColorSetting) setting).getValue().getAlpha() : "") +
-                            "\n" +
-                            ChatFormatting.WHITE +
-                            (setting.getDescription().isEmpty() ?
-                                    "A Color setting." + ChatFormatting.GREEN + " Name" + ChatFormatting.RESET + " «" + setting.getDisplayName() + "»."
-                                    : setting.getDescription());
-
-            drawDesc(renderer, mouseX + 8, mouseY + 8, description);
-        }
-
     }
 
     public static int toRGBA(int r, int g, int b, int a) {
@@ -291,6 +300,10 @@ public class ColorItem extends ExtendableItem {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == GLFW.GLFW_MOUSE_BUTTON_1 && parent.open && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 14) + 1, getY(), 13, getHeight(false))) {
+            isOpenPicker = !isOpenPicker;
+        }
+
         if (isOpenPicker) {
             if (button == 0) {
                 if (isHovering(mouseX, mouseY, svPickerX, svPickerY, svPickerX + svPickerWidth, svPickerY + svPickerHeight)) {
@@ -304,11 +317,6 @@ public class ColorItem extends ExtendableItem {
                 }
             }
         }
-
-        if (isHovering(mouseX, mouseY) && !setting.isHidden() && (button == 0 || button == 1)) {
-            isOpenPicker = !isOpenPicker;
-        }
-
         return super.mouseClicked(mouseX, mouseY, button);
     }
 

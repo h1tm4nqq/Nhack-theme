@@ -56,10 +56,7 @@ public class EnumItem extends ExtendableItem{
         renderSubItems(context, mouseX, mouseY, subItems, open);
 
     }
-    @Override
-    public double getX() {
-        return parent.getX() + 1.5;
-    }
+
 
     public void next() {
         if(setting instanceof StringSetting && !((StringSetting) setting).getOptions().isEmpty()) {

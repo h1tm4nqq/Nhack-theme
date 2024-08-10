@@ -45,10 +45,7 @@ public class NullItem extends ExtendableItem {
         super.render(context, mouseX, mouseY);
     }
 
-    @Override
-    public double getX() {
-        return parent.getX() + 1.5;
-    }
+
 
     @Override
     public double getY() {

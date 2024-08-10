@@ -74,10 +74,7 @@ public class BindItem extends ExtendableItem{
         renderSubItems(context, mouseX, mouseY, subItems, open);
     }
 
-    @Override
-    public double getX() {
-        return parent.getX() + 1.5;
-    }
+
     @Override
     public double getY() {
         return super.getY();

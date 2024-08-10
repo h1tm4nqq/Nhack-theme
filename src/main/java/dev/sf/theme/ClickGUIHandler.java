@@ -7,6 +7,7 @@ import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.feature.module.ModuleCategory;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
+import org.rusherhack.client.api.render.font.IFontRenderer;
 import org.rusherhack.client.api.ui.panel.PanelHandlerBase;
 
 import java.util.ArrayList;
@@ -69,30 +70,31 @@ public class ClickGUIHandler extends PanelHandlerBase<Panel> {
         final PoseStack matrixStack = renderContext.pose();
         final IRenderer2D renderer = this.getRenderer();
         final boolean building = renderer.isBuilding();
-        if(building) renderer.end();
-        renderer.begin(matrixStack, this.getFontRenderer());
+        if(!building) renderer.begin(matrixStack, this.getFontRenderer());
         renderer.drawRectangle(0, 0, mc.getWindow().getScreenWidth(), mc.getWindow().getScreenHeight(), NhackPlugin.theme.backgroundColor.getValueRGB());
-        renderer.end();
 
         for(Panel element : this.getElements()) {
             if(!this.isEnabled(element)) continue;
             if(element == null) continue;
 
-            renderer.begin(matrixStack, this.getFontRenderer());
+
             matrixStack.pushPose();
           //  matrixStack.translate(-element.getX(), -element.getY(), 0);
             element.render(renderContext, mouseX, mouseY);
             matrixStack.popPose();
-            renderer.end();
-        }
 
+        }
+        renderer.end();// this. right ?
     }
 
     @Override
     public void setDefaultPositions() {
 
     }
-
+    @Override
+    public IFontRenderer getFontRenderer() {
+        return NhackPlugin.theme.forceVanilla.getValue() ? RusherHackAPI.fonts().getVanillaFontRenderer() : super.getFontRenderer();
+    }
     @Override
     public void render(RenderContext context, double mouseX, double mouseY) {
         super.render(context, mouseX, mouseY);

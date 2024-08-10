@@ -56,8 +56,7 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
             double height = 14 + 3;
             for (ExtendableItem subItem : subItems) {
                 if(subItem.setting.isHidden()) continue;
-
-                subItem.setX(getX() + 3);
+                subItem.setX(getX());
                 subItem.setY(getY() + height);
 
                 subItem.render(context, mouseX, mouseY);
@@ -69,7 +68,7 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
 
     @Override
     public double getWidth() {
-        return parent.getWidth() -3;
+        return parent.getWidth() - 5.5;
     }
 
     @Override
@@ -79,35 +78,9 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
         }
         return 14;
     }
-    public void drawDesc(IRenderer2D mesh2D, double x, double y, String text) {
-        Runnable runnable = () -> {
-            mesh2D.getMatrixStack().pushPose();
-            mesh2D.getMatrixStack().translate(0F, 0F, 200F);
-            IFontRenderer fontRenderer = getFontRenderer();
-            List<Tuple<Float, String>> pairs = new ArrayList<>();
-            String[] lines = text.split("\n");
-            float offset = 0;
-            for (String s : lines) {
-                pairs.add(new Tuple<>(offset, s));
-                offset += (float) getFontRenderer().getFontHeight() + 0.3f;
-            }
-            double maxWidth = Arrays.stream(lines)
-                    .map(fontRenderer::getStringWidth)
-                    .max(Comparator.comparing(i -> i)).orElse(0.0);
-            double diff = Math.max(0, x + maxWidth - mc.getWindow().getGuiScaledWidth());
-            double x0 = x - (diff + (diff > 0 ? 1F : 0F));
-            mesh2D.drawRectangle(x0 - 0.5F, y - 0.5F, maxWidth + 0.5F, offset, new Color(0, 0, 0, 200).getRGB());
-
-            for (Tuple<Float, String> pair : pairs) {
-                getFontRenderer().drawString(pair.getB(), x0, y + pair.getA() - 1F, NhackPlugin.theme.fontColor.getValue().getRGB());
-            }
-            mesh2D.getMatrixStack().popPose();
-        };
-        Panel.setRun(runnable);
-    }
     @Override
     public double getX(){
-        return panel.getX() + 1.5;
+        return parent.getX() + 3.5;
     }
 
     @Override

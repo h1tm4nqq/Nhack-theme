@@ -3,6 +3,7 @@ package dev.sf.theme.items;
 import dev.sf.theme.NhackPlugin;
 import dev.sf.theme.Panel;
 import dev.sf.theme.Theme;
+import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
@@ -18,7 +19,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.rusherhack.client.api.Globals.mc;
 
 
-public class StringItem extends ExtendableItem{
+public class StringItem extends ExtendableItem {
 
     private int count;
     private int index = 1;
@@ -38,47 +39,69 @@ public class StringItem extends ExtendableItem{
     @Override
     public void render(RenderContext context, double mouseX, double mouseY) {
         super.render(context, mouseX, mouseY);
-        renderer.drawOutlinedRectangle(getX(), getY(), getWidth(), getHeight(),
+        renderer.drawOutlinedRectangle(
+                getX(),
+                getY(),
+                subItems.isEmpty() ? getWidth() : getWidth() - 14 - 1,
+                getHeight(),
                 NhackPlugin.theme.outlineWidth.getValue(),
                 Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
-        if(isHovering(mouseX, mouseY)) {
-            renderer.drawRectangle(getX(), getY(), getWidth(), getHeight(false), new Color(0,0,0, 70).getRGB());
+
+        if (!subItems.isEmpty()) {
+            renderer.drawOutlinedRectangle(
+                    getX() + (getWidth() - 14) + 1,
+                    getY(),
+                    13,
+                    getHeight(),
+                    NhackPlugin.theme.outlineWidth.getValue(),
+                    open
+                            ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
+                            : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                    NhackPlugin.theme.outlineColor.getValueRGB());
         }
 
-
-
+        if (isHovering(mouseX, mouseY)) {
+            renderer.drawRectangle(getX(), getY(), getWidth(), getHeight(false), new Color(0, 0, 0, 70).getRGB());
+        }
 
         if (listening) {
             getFontRenderer().drawText(getIdleSign(),
-            getFontRenderer().getStringWidth(setting.getDisplayName() + ": " + (listening ? str.toString() : setting.getValue())),
+                    getFontRenderer().getStringWidth(setting.getDisplayName() + ": " + (listening ? str.toString() : setting.getValue())),
                     getY() + NhackPlugin.theme.x.getValue(),
                     NhackPlugin.theme.fontColor.getValueRGB(), getWidth(), 1);
-            drawText(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
+
+            if (subItems.isEmpty()) drawText(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
+            else drawTextEx(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
         } else {
-            drawText(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
+            if (subItems.isEmpty()) drawText(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
+            else drawTextEx(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
         }
 
         renderSubItems(context, mouseX, mouseY, subItems, open);
     }
-    @Override
-    public double getX() {
-        return parent.getX() + 1.5;
-    }
+
+
+
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if(!parent.open) return false;
-        if (isHovering(mouseX, mouseY)) {
-            if (button == GLFW_MOUSE_BUTTON_LEFT || button == GLFW_MOUSE_BUTTON_RIGHT) {
-                if (listening) {
-                    set();
-                } else {
-                    listening = true;
-                }
+        if ((button == org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1 || button == org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_2) && parent.open && subItems.isEmpty()
+                ? panel.isHovering(mouseX, mouseY, getX(), getY(), getWidth(), getHeight())
+                : panel.isHovering(mouseX, mouseY, getX(), getY(), getWidth() - 1 - 14, getHeight(false)))
+        {
+            if (listening) {
+                set();
+            } else {
+                listening = true;
             }
         }
+        if(button == GLFW.GLFW_MOUSE_BUTTON_1 && parent.open && !subItems.isEmpty() && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 14) +  1, getY(), 13, getHeight(false))) {
+            open = !open;
+        }
+
         return super.mouseClicked(mouseX, mouseY, button);
     }
+
     private void set() {
         setting.setValue(str.toString());
 
@@ -87,9 +110,11 @@ public class StringItem extends ExtendableItem{
         count = ctrlz.size() - 1;
         listening = false;
     }
+
     public static boolean isAllowedCharacter(char character) {
         return character != 167 && character >= ' ' && character != 127;
     }
+
     public String getIdleSign() {
         if (idleTimer.passed(500L)) {
             idling = !idling;
@@ -100,6 +125,7 @@ public class StringItem extends ExtendableItem{
         }
         return "";
     }
+
     @Override
     public double getY() {
         return super.getY();

@@ -69,10 +69,7 @@ public class BooleanItem extends ExtendableItem {
       else drawTextEx(setting.getDisplayName());
       renderSubItems(context, mouseX, mouseY, subItems, open);
     }
-    @Override
-    public double getX() {
-        return parent.getX() + 1.5;
-    }
+
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
