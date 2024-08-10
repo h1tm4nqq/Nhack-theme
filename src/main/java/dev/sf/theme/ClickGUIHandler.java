@@ -3,12 +3,16 @@ package dev.sf.theme;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.sf.theme.items.ModuleItem;
 import org.rusherhack.client.api.RusherHackAPI;
+import org.rusherhack.client.api.events.render.EventRenderScreen;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.feature.module.ModuleCategory;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.client.api.render.font.IFontRenderer;
 import org.rusherhack.client.api.ui.panel.PanelHandlerBase;
+import org.rusherhack.core.event.listener.EventListener;
+import org.rusherhack.core.event.stage.Stage;
+import org.rusherhack.core.event.subscribe.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,9 +20,10 @@ import java.util.List;
 
 import static dev.sf.theme.Panel.run;
 
-public class ClickGUIHandler extends PanelHandlerBase<Panel> {
+public class ClickGUIHandler extends PanelHandlerBase<Panel> implements EventListener {
     public ClickGUIHandler(boolean scaledWithMinecraftGui) {
         super(scaledWithMinecraftGui);
+        RusherHackAPI.getEventBus().subscribe(this);
     }
 
     @Override
@@ -69,32 +74,31 @@ public class ClickGUIHandler extends PanelHandlerBase<Panel> {
     public void renderElements(RenderContext renderContext, double mouseX, double mouseY) {
         final PoseStack matrixStack = renderContext.pose();
         final IRenderer2D renderer = this.getRenderer();
-        final boolean building = renderer.isBuilding();
-        if(!building) renderer.begin(matrixStack, this.getFontRenderer());
-        renderer.drawRectangle(0, 0, mc.getWindow().getScreenWidth(), mc.getWindow().getScreenHeight(), NhackPlugin.theme.backgroundColor.getValueRGB());
-
+        
         for(Panel element : this.getElements()) {
             if(!this.isEnabled(element)) continue;
             if(element == null) continue;
-
-
-            matrixStack.pushPose();
-          //  matrixStack.translate(-element.getX(), -element.getY(), 0);
+            
+            renderer.begin(matrixStack, this.getFontRenderer());
+            
+            matrixStack.translate(0, 0, 100);
             element.render(renderContext, mouseX, mouseY);
-            matrixStack.popPose();
-
+            
+            renderer.end();
         }
-        renderer.end();// this. right ?
+        
     }
 
     @Override
     public void setDefaultPositions() {
 
     }
+    
     @Override
     public IFontRenderer getFontRenderer() {
         return NhackPlugin.theme.forceVanilla.getValue() ? RusherHackAPI.fonts().getVanillaFontRenderer() : super.getFontRenderer();
     }
+    
     @Override
     public void render(RenderContext context, double mouseX, double mouseY) {
         super.render(context, mouseX, mouseY);
@@ -103,4 +107,20 @@ public class ClickGUIHandler extends PanelHandlerBase<Panel> {
             run = null;
         }
     }
+    
+    @Override
+    public boolean isListening() {
+        return RusherHackAPI.getThemeManager().getClickGuiHandler().equals(this)
+               && mc.screen == RusherHackAPI.getThemeManager().getClickGuiScreen();
+    }
+    
+    @Subscribe(stage = Stage.PRE)
+    private void onScreenRender(EventRenderScreen event) {
+        //background
+        final IRenderer2D renderer = this.getRenderer();
+        renderer.begin(event.getMatrixStack());
+        renderer.drawRectangle(0, 0, mc.getWindow().getScreenWidth(), mc.getWindow().getScreenHeight(), NhackPlugin.theme.backgroundColor.getValueRGB());
+        renderer.end();
+    }
+    
 }

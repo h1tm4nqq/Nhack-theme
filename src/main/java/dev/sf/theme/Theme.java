@@ -6,6 +6,7 @@ import org.rusherhack.client.api.ui.panel.PanelHandlerBase;
 import org.rusherhack.client.api.ui.theme.ThemeBase;
 import org.rusherhack.core.setting.BooleanSetting;
 import org.rusherhack.core.setting.NumberSetting;
+import org.rusherhack.core.utils.ColorUtils;
 
 import java.awt.*;
 
@@ -43,7 +44,7 @@ public class Theme extends ThemeBase {
 
     public Theme(String name, String description, Color defaultColor) {
         super(name, description, defaultColor);
-        getColorSetting().setValue(new Color(60, 200, 200, 255));
+        getColorSetting().setAlphaAllowed(false);
         registerSettings(
                 alpha,
 

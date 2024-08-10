@@ -11,7 +11,7 @@ import java.awt.*;
  * @author xyzbtw and hitmanqq
  */
 public class NhackPlugin extends Plugin {
-	public static Theme theme = new Theme("Nhack", "Nhack theme", new Color(60, 200, 200));
+	public static Theme theme = new Theme("nhack", "nhack theme", new Color(60, 200, 200, 255));
 	public static ClickGUIHandler handler;
 	
 	@Override
@@ -22,7 +22,7 @@ public class NhackPlugin extends Plugin {
 	
 	@Override
 	public void onUnload() {
-		this.getLogger().info("Nhack plugin unloaded!");
+		this.getLogger().info("nhack plugin unloaded!");
 	}
 
 
