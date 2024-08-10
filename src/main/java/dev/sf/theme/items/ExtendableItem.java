@@ -33,8 +33,7 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
     public double mouseX = 0, mouseY = 0, rendererHeight = 11F;
     public boolean open = true;
     public  IRenderer2D renderer = RusherHackAPI.getRenderer2D();
-
-    public IFontRenderer fontRenderer = getFontRenderer();
+	
     public List<ExtendableItem> subItems = new ArrayList<>();
     public ExtendableItem(ExtendableItem parent, IModule module, dev.sf.theme.Panel panel, Setting<?> settingValue) {
         this.parent = parent;
@@ -95,34 +94,41 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        subItems.forEach(subItem -> subItem.mouseClicked(mouseX, mouseY, button));
-        return false;
+        if(!this.open) {
+            return false;
+        }
+        
+        boolean consumed = false;
+        for(ExtendableItem subItem : subItems) {
+            if(subItem.mouseClicked(mouseX, mouseY, button)) {
+                consumed = true;
+            }
+        }
+        return consumed;
     }
 
     public void drawText(String text) {
-        String text0 = getFontRenderer().trimStringToWidth(text, getWidth());
-        getFontRenderer().drawText
-        (
-                text0,
-                getX() + getWidth() / 2 - getFontRenderer().getStringWidth(text0) / 2,
-                getY() + getHeight(false) / 2 - getFontRenderer().getFontHeight() / 2,
-                NhackPlugin.theme.fontColor.getValueRGB(),
-                getWidth(),
-                1
-        );
+        //String text0 = getFontRenderer().trimStringToWidth(text, getWidth());
+		final IFontRenderer fr = this.getFontRenderer();
+		final double stringWidth = fr.getStringWidth(text);
+		fr.drawString(
+				text,
+				this.getX() + (int) (this.getWidth() / 2f) - stringWidth / 2f,
+				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f,
+				NhackPlugin.theme.fontColor.getValueRGB()
+		);
     }
 
     public void drawTextEx(String text) {
-        String text0 = getFontRenderer().trimStringToWidth(text, getWidth());
-        getFontRenderer().drawText
-                (
-                        text0,
-                        getX() + (getWidth() - 1 - 14) / 2 - getFontRenderer().getStringWidth(text0) / 2,
-                        getY() + getHeight(false) / 2 - getFontRenderer().getFontHeight() / 2,
-                        NhackPlugin.theme.fontColor.getValueRGB(),
-                        getWidth(),
-                        1
-                );
+        //String text0 = getFontRenderer().trimStringToWidth(text, getWidth());
+		final IFontRenderer fr = this.getFontRenderer();
+		final double stringWidth = fr.getStringWidth(text);
+		fr.drawString(
+				text,
+				this.getX() + (int) (this.getWidth() / 2f) - stringWidth / 2f,
+				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f,
+				NhackPlugin.theme.fontColor.getValueRGB()
+		);
     }
 
     @Override

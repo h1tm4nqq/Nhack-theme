@@ -128,25 +128,28 @@ public class ModuleItem extends ExtendableItem {
 //
 //            drawDesc(renderer, mouseX + 8,mouseY + 8, description);
 //        }
-
-        getFontRenderer().drawText(module.getName(),
-                getX() + (getWidth() - 1 - 16) / 2 - getFontRenderer().getStringWidth(module.getName()) / 2,
-                getY() + getHeight(false) / 2 - getFontRenderer().getFontHeight() / 2,
-                NhackPlugin.theme.fontColor.getValue().getRGB(), getWidth(), 1);
+        
+        fontRenderer.drawString(module.getName(),
+                getX() + (getWidth() - 1 - 16) / 2 - fontRenderer.getStringWidth(module.getName()) / 2,
+                getY() + getHeight(false) / 2 - fontRenderer.getFontHeight() / 2,
+                NhackPlugin.theme.fontColor.getValue().getRGB());
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if(open) subItems.forEach(frame -> frame.mouseClicked(mouseX, mouseY, button));
         if (button == GLFW.GLFW_MOUSE_BUTTON_1 && panel.isHovering(mouseX, mouseY, getX(), getY(), getWidth() - 1 - 16, getHeight(false))) {
             if(module instanceof ToggleableModule){
                 ((ToggleableModule) module).toggle();
             }
+            return true;
         }
+        
         if (button == GLFW.GLFW_MOUSE_BUTTON_1 && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 16) +  1, getY(), 13, getHeight(false))) {
             this.open = !this.open;
+            return true;
         }
-        return false;
+        
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

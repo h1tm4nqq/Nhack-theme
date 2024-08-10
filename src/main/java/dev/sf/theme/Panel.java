@@ -169,10 +169,7 @@ public class Panel extends PanelBase<IPanelItem> {
         //   }
         return false;
     }
-    @Override
-    public IFontRenderer getFontRenderer() {
-        return NhackPlugin.theme.forceVanilla.getValue() ? RusherHackAPI.fonts().getVanillaFontRenderer() : super.getFontRenderer();
-    }
+    
     public boolean isHovering(double mouseX, double mouseY, double x, double y, double width, double height) {
         return x < mouseX && width + x > mouseX && y < mouseY && height + y > mouseY;
     }
