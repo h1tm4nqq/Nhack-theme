@@ -78,12 +78,10 @@ public class ClickGUIHandler extends PanelHandlerBase<Panel> implements EventLis
         for(Panel element : this.getElements()) {
             if(!this.isEnabled(element)) continue;
             if(element == null) continue;
-            renderer.beginScissor();
             renderer.begin(matrixStack, this.getFontRenderer());
             matrixStack.translate(0, 0, 100);
             element.render(renderContext, mouseX, mouseY);
             renderer.end();
-            renderer.endScissor();
         }
         
     }

@@ -116,14 +116,12 @@ public class ModuleItem extends ExtendableItem {
         if(NhackPlugin.theme.settingsOutline.getValue() && open){
             renderer.drawOutlinedRectangle(getX(), getY() + getHeight(false), getWidth(), getHeight(true) - getHeight(false), 2.5f, new Color(0,0,0,0.5f).getRGB(), NhackPlugin.theme.outlineColor.getValueRGB());
         }
-
-        renderer.beginScissor();
+        
         fontRenderer.drawString(module.getName(),
                 getX() + (getWidth() - 1 - 16) / 2 - fontRenderer.getStringWidth(module.getName()) / 2,
                 getY() + getHeight(false) / 2 - fontRenderer.getFontHeight() / 2 + 1,
                 NhackPlugin.theme.fontColor.getValue().getRGB());
-        renderer.endScissor();
-
+        
         renderSubItems(context, mouseX, mouseY, subItems, open);
     }
 

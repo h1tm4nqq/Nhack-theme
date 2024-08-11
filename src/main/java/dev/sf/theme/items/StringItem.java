@@ -67,12 +67,12 @@ public class StringItem extends ExtendableItem {
         }
 
         if (listening) {
-            renderer.beginScissor();
+            
             getFontRenderer().drawString(getIdleSign(),
                     getFontRenderer().getStringWidth(setting.getDisplayName() + ": " + (listening ? str.toString() : setting.getValue())),
                     getY() + NhackPlugin.theme.x.getValue(),
                     NhackPlugin.theme.fontColor.getValueRGB());
-            renderer.endScissor();
+            
             if (subItems.isEmpty()) drawText(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
             else drawTextEx(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
         } else {

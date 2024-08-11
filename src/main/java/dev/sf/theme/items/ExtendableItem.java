@@ -51,7 +51,10 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
     }
     public void renderSubItems(RenderContext context, double mouseX, double mouseY, List<ExtendableItem> subItems, Boolean open) {
         if(!subItems.isEmpty() && open) {
+            
+            renderer.scissorBox(getX(), getY(), getWidth(), getHeight(true) + 1);
             renderer.getMatrixStack().pushPose();
+            
             double height = 14 + 3;
             for (ExtendableItem subItem : subItems) {
                 if(subItem.setting.isHidden()) continue;
@@ -61,7 +64,9 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
                 subItem.render(context, mouseX, mouseY);
                 height += subItem.getHeight(true) + 3;
             }
+            
             renderer.getMatrixStack().popPose();
+            renderer.popScissorBox();
         }
     }
 
@@ -109,28 +114,24 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
         //String text0 = getFontRenderer().trimStringToWidth(text, getWidth());
 		final IFontRenderer fr = this.getFontRenderer();
 		final double stringWidth = fr.getStringWidth(text);
-        renderer.scissorBox(getX(), getY(), getWidth(), getHeight(false));
 		fr.drawString(
 				text,
 				this.getX() + (int) (this.getWidth() / 2f) - stringWidth / 2f,
 				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f + 1,
 				NhackPlugin.theme.fontColor.getValueRGB()
 		);
-        renderer.popScissorBox();
     }
 
     public void drawTextEx(String text) {
         //String text0 = getFontRenderer().trimStringToWidth(text, getWidth());
 		final IFontRenderer fr = this.getFontRenderer();
 		final double stringWidth = fr.getStringWidth(text);
-        renderer.scissorBox(getX(), getY(), getWidth() - 1 - 14, getHeight(false));
 		fr.drawString(
 				text,
 				this.getX() + (int) (getWidth() - 1 - 14) / 2f - stringWidth / 2f,
 				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f + 1,
 				NhackPlugin.theme.fontColor.getValueRGB()
 		);
-        renderer.popScissorBox();
     }
 
     @Override

@@ -86,6 +86,10 @@ public class Panel extends PanelBase<IPanelItem> {
                 );
 
         if (open) {
+            
+            renderer.beginScissor();
+            renderer.scissorBox(x, y, getWidth(), getHeight());
+            
             if (height > 0) {
                 renderer.drawOutlinedRectangle
                 (
@@ -104,6 +108,8 @@ public class Panel extends PanelBase<IPanelItem> {
                     y0 += frame.getHeight(true) + 3;
                 }
             }
+            
+            renderer.endScissor();
         }
     }
 
