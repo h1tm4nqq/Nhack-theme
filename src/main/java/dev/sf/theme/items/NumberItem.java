@@ -9,6 +9,7 @@ import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.core.setting.NumberSetting;
 import org.rusherhack.core.setting.Setting;
+import org.rusherhack.core.utils.ColorUtils;
 import org.rusherhack.core.utils.MathUtils;
 import org.rusherhack.core.utils.Timer;
 
@@ -61,7 +62,7 @@ public class NumberItem extends ExtendableItem {
                     NhackPlugin.theme.outlineWidth.getValue(),
                     open
                             ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                            : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                            : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                     NhackPlugin.theme.outlineColor.getValueRGB());
         }
 

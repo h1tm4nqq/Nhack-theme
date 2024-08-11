@@ -11,6 +11,7 @@ import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.client.api.render.font.IFontRenderer;
 import org.rusherhack.client.api.setting.BindSetting;
+import org.rusherhack.core.utils.ColorUtils;
 
 import java.awt.*;
 
@@ -73,7 +74,7 @@ public class ModuleItem extends ExtendableItem {
                 getWidth() - 1 - 16,
                 getHeight(false),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                isToggled ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                isToggled ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.categoryLineColor.getValueRGB()
         );
 
@@ -83,7 +84,7 @@ public class ModuleItem extends ExtendableItem {
                 13,
                 getHeight(false),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                !subItems.isEmpty() && open ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                !subItems.isEmpty() && open ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.categoryLineColor.getValueRGB()
         );
 
@@ -116,23 +117,14 @@ public class ModuleItem extends ExtendableItem {
             renderer.drawOutlinedRectangle(getX(), getY() + getHeight(false), getWidth(), getHeight(true) - getHeight(false), 2.5f, new Color(0,0,0,0.5f).getRGB(), NhackPlugin.theme.outlineColor.getValueRGB());
         }
 
-        renderSubItems(context, mouseX, mouseY, subItems, open);
-
-
-//        if(panel.isHovering(mouseX,mouseY, getX(), getY(), getWidth(), getHeight(false))) {
-//            renderer.drawRectangle(getX(), getY() - 1, getWidth(), getHeight(false) + 1, new Color(0, 0, 0, 70).getRGB());
-//            String description =
-//                    (module.getDescription().isEmpty() ?
-//                            "A " + module.getCategory() +" Module." + ChatFormatting.GREEN + " Name" + ChatFormatting.RESET + " «" +  module.getName() + "»."
-//                            : module.getDescription());
-//
-//            drawDesc(renderer, mouseX + 8,mouseY + 8, description);
-//        }
-        
+        renderer.beginScissor();
         fontRenderer.drawString(module.getName(),
                 getX() + (getWidth() - 1 - 16) / 2 - fontRenderer.getStringWidth(module.getName()) / 2,
-                getY() + getHeight(false) / 2 - fontRenderer.getFontHeight() / 2,
+                getY() + getHeight(false) / 2 - fontRenderer.getFontHeight() / 2 + 1,
                 NhackPlugin.theme.fontColor.getValue().getRGB());
+        renderer.endScissor();
+
+        renderSubItems(context, mouseX, mouseY, subItems, open);
     }
 
     @Override

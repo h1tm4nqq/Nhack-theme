@@ -10,13 +10,19 @@ import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.client.api.setting.ColorSetting;
+import org.rusherhack.core.logging.ILogger;
 import org.rusherhack.core.setting.Setting;
+import org.rusherhack.core.utils.ColorUtils;
 
 import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ColorItem extends ExtendableItem {
+    ILogger logger = RusherHackAPI.createLogger("Nhack");
+
+
+
     public ColorItem(ExtendableItem parent, IModule module, Panel panel, Setting<?> settingValue) {
         super(parent, module, panel, settingValue);
         colorMode = ((ColorSetting) setting).getRainbowMode();
@@ -102,7 +108,7 @@ public class ColorItem extends ExtendableItem {
                 getWidth() - 14 - 1,
                 getHeight(),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
 
         renderer.drawOutlinedRectangle(
@@ -113,7 +119,7 @@ public class ColorItem extends ExtendableItem {
                 NhackPlugin.theme.outlineWidth.getValue(),
                 isOpenPicker
                         ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                        : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                        : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
 
         drawTextEx(setting.getDisplayName());

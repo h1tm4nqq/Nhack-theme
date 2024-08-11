@@ -98,7 +98,7 @@ tasks.register("moveJar", Exec){
 			'/c',
 			'copy',
 			'/Y',
-			'build\\libs\\rushergui-1.0.0.jar',
+			'build\\libs\\nhack-theme-1.0.0.jar',
 			'C:\\Users\\Shadow_Fiend\\Desktop\\cubes\\instances\\1.20.6\\.minecraft\\rusherhack\\plugins'
 	println "Copied jar file to destination folder with replacement"
 }

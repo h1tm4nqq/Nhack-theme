@@ -8,6 +8,7 @@ import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.core.setting.Setting;
 import org.rusherhack.core.setting.StringSetting;
+import org.rusherhack.core.utils.ColorUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class EnumItem extends ExtendableItem{
                 subItems.isEmpty() ? getWidth() : getWidth() - 14 - 1,
                 getHeight(),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
 
         if(!subItems.isEmpty()) {
@@ -44,7 +45,7 @@ public class EnumItem extends ExtendableItem{
                     NhackPlugin.theme.outlineWidth.getValue(),
                     open
                             ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                            : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                            : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                     NhackPlugin.theme.outlineColor.getValueRGB());
         }
 

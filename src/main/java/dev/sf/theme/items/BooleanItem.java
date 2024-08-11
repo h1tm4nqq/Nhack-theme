@@ -9,6 +9,7 @@ import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.core.setting.BooleanSetting;
+import org.rusherhack.core.utils.ColorUtils;
 
 import java.awt.*;
 
@@ -45,7 +46,7 @@ public class BooleanItem extends ExtendableItem {
                 NhackPlugin.theme.outlineWidth.getValue(),
                 setting.getValue()
                 ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
 
         if(!subItems.isEmpty()) {
@@ -57,7 +58,7 @@ public class BooleanItem extends ExtendableItem {
                     NhackPlugin.theme.outlineWidth.getValue(),
                     open
                     ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                    : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                    : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                     NhackPlugin.theme.outlineColor.getValueRGB());
         }
 

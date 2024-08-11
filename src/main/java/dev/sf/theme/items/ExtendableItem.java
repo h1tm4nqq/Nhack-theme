@@ -67,19 +67,17 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
 
     @Override
     public double getWidth() {
-        return parent.getWidth() - 5.5;
+        return parent.getWidth() - 6;
     }
 
     @Override
     public double getHeight(boolean total) {
-        if(total){
-            return rendererHeight;
-        }
+        if(total) return rendererHeight;
         return 14;
     }
     @Override
     public double getX(){
-        return parent.getX() + 3.5;
+        return parent.getX() + 3;
     }
 
     @Override
@@ -111,24 +109,28 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
         //String text0 = getFontRenderer().trimStringToWidth(text, getWidth());
 		final IFontRenderer fr = this.getFontRenderer();
 		final double stringWidth = fr.getStringWidth(text);
+        renderer.scissorBox(getX(), getY(), getWidth(), getHeight(false));
 		fr.drawString(
 				text,
 				this.getX() + (int) (this.getWidth() / 2f) - stringWidth / 2f,
-				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f,
+				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f + 1,
 				NhackPlugin.theme.fontColor.getValueRGB()
 		);
+        renderer.popScissorBox();
     }
 
     public void drawTextEx(String text) {
         //String text0 = getFontRenderer().trimStringToWidth(text, getWidth());
 		final IFontRenderer fr = this.getFontRenderer();
 		final double stringWidth = fr.getStringWidth(text);
+        renderer.scissorBox(getX(), getY(), getWidth() - 1 - 14, getHeight(false));
 		fr.drawString(
 				text,
-				this.getX() + (int) (this.getWidth() / 2f) - stringWidth / 2f,
-				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f,
+				this.getX() + (int) (getWidth() - 1 - 14) / 2f - stringWidth / 2f,
+				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f + 1,
 				NhackPlugin.theme.fontColor.getValueRGB()
 		);
+        renderer.popScissorBox();
     }
 
     @Override

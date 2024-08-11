@@ -7,6 +7,7 @@ import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.core.setting.Setting;
+import org.rusherhack.core.utils.ColorUtils;
 
 public class NullItem extends ExtendableItem {
     public NullItem(ExtendableItem parent, IModule module, Panel panel, Setting<?> settingValue) {
@@ -24,7 +25,7 @@ public class NullItem extends ExtendableItem {
                 getWidth() - 14 - 1,
                 getHeight(),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
 
         renderer.drawOutlinedRectangle(
@@ -35,7 +36,7 @@ public class NullItem extends ExtendableItem {
                 NhackPlugin.theme.outlineWidth.getValue(),
                 open
                         ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                        : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                        : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
 
         drawTextEx(setting.getDisplayName());

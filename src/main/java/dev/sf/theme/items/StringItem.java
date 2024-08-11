@@ -8,6 +8,7 @@ import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.core.setting.Setting;
+import org.rusherhack.core.utils.ColorUtils;
 import org.rusherhack.core.utils.Timer;
 
 import java.awt.*;
@@ -45,7 +46,7 @@ public class StringItem extends ExtendableItem {
                 subItems.isEmpty() ? getWidth() : getWidth() - 14 - 1,
                 getHeight(),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
 
         if (!subItems.isEmpty()) {
@@ -57,7 +58,7 @@ public class StringItem extends ExtendableItem {
                     NhackPlugin.theme.outlineWidth.getValue(),
                     open
                             ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                            : Theme.changeAlpha(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                            : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                     NhackPlugin.theme.outlineColor.getValueRGB());
         }
 
@@ -66,11 +67,12 @@ public class StringItem extends ExtendableItem {
         }
 
         if (listening) {
+            renderer.beginScissor();
             getFontRenderer().drawString(getIdleSign(),
                     getFontRenderer().getStringWidth(setting.getDisplayName() + ": " + (listening ? str.toString() : setting.getValue())),
                     getY() + NhackPlugin.theme.x.getValue(),
                     NhackPlugin.theme.fontColor.getValueRGB());
-
+            renderer.endScissor();
             if (subItems.isEmpty()) drawText(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
             else drawTextEx(setting.getDisplayName() + " - " + (listening ? str.toString() : setting.getValue()));
         } else {
