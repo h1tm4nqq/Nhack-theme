@@ -17,10 +17,10 @@ import org.rusherhack.core.utils.ColorUtils;
 import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+//3 года назад я нашел этот колорпикер в каком-то убогом чите, эхх настольгия. А сколько же он повидал: первый форевор, второй форевор, тему хуза и мою тему.
+//3 years ago I found this colorpicker in some shitty cheat, ehhh nostalgia. And how much it has seen: first forevor, second forevor, xyz and my theme.
 public class ColorItem extends ExtendableItem {
-    ILogger logger = RusherHackAPI.createLogger("Nhack");
-
+    private static final Color TRANSPARENT = new Color(0, 0, 0, 1);
 
 
     public ColorItem(ExtendableItem parent, IModule module, Panel panel, Setting<?> settingValue) {
@@ -28,13 +28,13 @@ public class ColorItem extends ExtendableItem {
         colorMode = ((ColorSetting) setting).getRainbowMode();
 
         // size
-        this.svPickerWidth = getWidth() - 14;
-        this.svPickerHeight = getWidth() - 14;
+        this.svPickerWidth = getWidth() - 15;
+        this.svPickerHeight = getWidth() - 15;
 
         this.hPickerWidth = 6;
-        this.hPickerHeight = getWidth() - 14;
+        this.hPickerHeight = getWidth() - 15;
 
-        this.aPickerWidth = getWidth() - 14;
+        this.aPickerWidth = getWidth() - 15;
         this.aPickerHeight = 6;
 
         // cursors
@@ -94,14 +94,7 @@ public class ColorItem extends ExtendableItem {
         if (isHovering(mouseX, mouseY)) {
             renderer.drawRectangle(x, getY(), getWidth(), getHeight(), new Color(0, 0, 0, 70).getRGB());
         }
-        this.svPickerWidth = getWidth() - 14;
-        this.svPickerHeight = getWidth() - 14;
 
-        this.hPickerWidth = 6;
-        this.hPickerHeight = getWidth() - 14;
-
-        this.aPickerWidth = getWidth() - 14;
-        this.aPickerHeight = 6;
         renderer.drawOutlinedRectangle(
                 getX(),
                 getY(),
@@ -143,22 +136,39 @@ public class ColorItem extends ExtendableItem {
             double pickerY = this.getY() + this.getHeight();
             // sv
             h = ((hPickerHeight - 3) - hCursorY) / (hPickerHeight - 3); //0-80
-            double r;
             this.svPickerX = pickerX + 1;
-            this.svPickerY = pickerY + 1;
-            r = 1.0F / svPickerHeight;
-            for (int i = 0; i < svPickerHeight; i++) {
-                double v0 = r * (svPickerHeight - i);
-                double v1 = r * (svPickerHeight - (i + 1));
-                int left = Color.HSBtoRGB((float) h, 0F, (float) v0);
-                int right = Color.HSBtoRGB((float) h, 1.0F, (float) v1);
-                renderer.drawGradientRectangle(svPickerX, svPickerY + i, svPickerX + svPickerWidth, svPickerY + svPickerHeight, svPickerWidth, 1.1, left, right);
-            }
+            this.svPickerY = pickerY + 1 + 2;
+
+            renderer.drawRectangle(
+                    svPickerX,
+                    svPickerY,
+                    svPickerWidth,
+                    svPickerHeight - 1,
+                    Color.HSBtoRGB((float) h, 1F, 1F));
+
+            renderer.drawGradientRectangle(
+                    svPickerX,
+                    svPickerY,
+                    svPickerX + svPickerWidth,
+                    svPickerY,
+                    svPickerWidth,
+                    svPickerHeight,
+                    Color.WHITE.getRGB(), TRANSPARENT.getRGB());
+
+            renderer.drawGradientRectangle(
+                    svPickerX,
+                    svPickerY,
+                    svPickerX,
+                    svPickerY + svPickerHeight,
+                    svPickerWidth,
+                    svPickerHeight,
+                    TRANSPARENT.getRGB(), Color.BLACK.getRGB());
 
             // sv cursor
             double svCx = svCursorX + svPickerX;
             double svCy = svCursorY + svPickerY;
             renderCursor(svCx, svCy, renderer);
+
             if (svChanging) {
                 svCursorX = mouseX - svPickerX;
                 if (svCursorX < 0)
@@ -183,13 +193,14 @@ public class ColorItem extends ExtendableItem {
 
             this.hPickerX = svPickerX + svPickerWidth + 4;
             this.hPickerY = svPickerY - 0.3F;
-            r = 1.0F / hPickerHeight;
-            for (int i = 0; i < hPickerHeight; i++) {
+            double r = 1.0F / hPickerHeight;
+            for (int i = 1; i < hPickerHeight -1; i++) {
                 double h0 = r * (hPickerHeight - i);
                 double h1 = r * (hPickerHeight - (i + 1));
                 int top = Color.HSBtoRGB((float) h0, 1.0F, 1.0F);
                 int bottom = Color.HSBtoRGB((float) h1, 1.0F, 1.0F);
-                renderer.drawGradientRectangle(hPickerX, hPickerY + i, hPickerX + hPickerWidth, hPickerY + hPickerHeight, hPickerWidth, 1, top, bottom);
+                renderer.drawGradientRectangle(hPickerX, hPickerY + i -1, hPickerX + hPickerWidth, hPickerY + hPickerHeight + 1, hPickerWidth, 2, top, bottom);
+                //мне похуй, я не хочу это фиксить
             }
             // h cursor
             renderCursorNoWith(hCursorX + hPickerX, hCursorY + hPickerY, renderer);
@@ -372,8 +383,7 @@ public class ColorItem extends ExtendableItem {
     protected void possibleHeightUpdate() {
         double temp;
         if (isOpenPicker) {
-            double l = !small ? 114F : 102.5F;
-            temp = l - getHeight(false);
+            temp = (!small ? svPickerHeight + aPickerHeight + 3 : svPickerHeight) + 17;// ура фикс хохла пикера
         } else {
             temp = super.getHeight();
         }

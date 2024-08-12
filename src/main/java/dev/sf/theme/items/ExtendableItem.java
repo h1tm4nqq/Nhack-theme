@@ -117,7 +117,7 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
 		fr.drawString(
 				text,
 				this.getX() + (int) (this.getWidth() / 2f) - stringWidth / 2f,
-				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f + 1,
+				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f,
 				NhackPlugin.theme.fontColor.getValueRGB()
 		);
     }
@@ -129,7 +129,7 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
 		fr.drawString(
 				text,
 				this.getX() + (int) (getWidth() - 1 - 14) / 2f - stringWidth / 2f,
-				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f + 1,
+				this.getY() + (int) (this.getHeight(false) / 2f) - fr.getFontHeight() / 2f,
 				NhackPlugin.theme.fontColor.getValueRGB()
 		);
     }

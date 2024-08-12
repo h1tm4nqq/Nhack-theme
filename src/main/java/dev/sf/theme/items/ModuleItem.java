@@ -75,7 +75,7 @@ public class ModuleItem extends ExtendableItem {
                 getHeight(false),
                 NhackPlugin.theme.outlineWidth.getValue(),
                 isToggled ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
-                NhackPlugin.theme.categoryLineColor.getValueRGB()
+                NhackPlugin.theme.outlineColor.getValueRGB()
         );
 
         renderer.drawOutlinedRectangle(
@@ -85,7 +85,7 @@ public class ModuleItem extends ExtendableItem {
                 getHeight(false),
                 NhackPlugin.theme.outlineWidth.getValue(),
                 !subItems.isEmpty() && open ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
-                NhackPlugin.theme.categoryLineColor.getValueRGB()
+                NhackPlugin.theme.outlineColor.getValueRGB()
         );
 
 

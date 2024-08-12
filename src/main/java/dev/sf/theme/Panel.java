@@ -7,7 +7,6 @@ import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
-import org.rusherhack.client.api.render.font.IFontRenderer;
 import org.rusherhack.client.api.ui.panel.IPanelItem;
 import org.rusherhack.client.api.ui.panel.PanelBase;
 import org.rusherhack.client.api.ui.panel.PanelHandlerBase;
@@ -64,7 +63,7 @@ public class Panel extends PanelBase<IPanelItem> {
         (
                 x, getYTop(),
                 getWidth(), 13.0, NhackPlugin.theme.outlineWidth.getValue(),
-                NhackPlugin.theme.categoryColor.getValueRGB(), NhackPlugin.theme.categoryLineColor.getValueRGB()
+                NhackPlugin.theme.categoryColor.getValueRGB(), NhackPlugin.theme.outlineColor.getValueRGB()
         );
         getFontRenderer().drawString
         (
@@ -82,20 +81,25 @@ public class Panel extends PanelBase<IPanelItem> {
                         NhackPlugin.theme.outlineWidth.getValue(),
                      !open
                              ? new Color(NhackPlugin.theme.getColorSetting().getValue().getRed(), NhackPlugin.theme.getColorSetting().getValue().getGreen(), NhackPlugin.theme.getColorSetting().getValue().getBlue(), NhackPlugin.theme.alpha.getValue()).getRGB()
-                             : NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.categoryLineColor.getValueRGB()
+                             : NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.outlineColor.getValueRGB()
                 );
 
         if (open) {
             
             renderer.beginScissor();
-            renderer.scissorBox(x, y, getWidth(), getHeight());
+            renderer.scissorBox(
+                    x - NhackPlugin.theme.outlineWidth.getValue() - 1,
+                    y - NhackPlugin.theme.outlineWidth.getValue() - 1,
+                    getWidth() + NhackPlugin.theme.outlineWidth.getValue() + 2,
+                    height + NhackPlugin.theme.outlineWidth.getValue() + 1.5F + 2
+            );
             
             if (height > 0) {
                 renderer.drawOutlinedRectangle
                 (
                         x, y,
-                        getWidth(), height + 1.5F, NhackPlugin.theme.outlineWidth.getValue(),
-                        NhackPlugin.theme.backColor.getValueRGB(),
+                        getWidth(), height + 1, NhackPlugin.theme.outlineWidth.getValue(),
+                        NhackPlugin.theme.panelColor.getValueRGB(),
                         NhackPlugin.theme.outlineColor.getValueRGB()
                 );
             }

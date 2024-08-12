@@ -14,6 +14,7 @@ import org.rusherhack.core.event.listener.EventListener;
 import org.rusherhack.core.event.stage.Stage;
 import org.rusherhack.core.event.subscribe.Subscribe;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,8 +41,8 @@ public class ClickGUIHandler extends PanelHandlerBase<Panel> implements EventLis
         Arrays.stream(ModuleCategory.values()).forEach(moduleCategory -> {
             Panel panel = new Panel(this, moduleCategory.getName().substring(0, 1).toUpperCase() + moduleCategory.getName().substring(1).toLowerCase(), x1, 17);
             List<ModuleItem> items = new ArrayList<>();
-            for(IModule module : RusherHackAPI.getModuleManager().getFeatures()) {
-                if(module.getCategory() == moduleCategory) {
+            for (IModule module : RusherHackAPI.getModuleManager().getFeatures()) {
+                if (module.getCategory() == moduleCategory) {
                     items.add(new ModuleItem(module, panel));
                 }
 
@@ -57,60 +58,60 @@ public class ClickGUIHandler extends PanelHandlerBase<Panel> implements EventLis
 
         Panel pluginPanel = new Panel(this, "Plugins", x1, 17);
 
-        for(IModule module : RusherHackAPI.getModuleManager().getFeatures()) {
-            if(!module.getClass().getClassLoader().equals(rusherhackClassLoader)) {
+        for (IModule module : RusherHackAPI.getModuleManager().getFeatures()) {
+            if (!module.getClass().getClassLoader().equals(rusherhackClassLoader)) {
                 pluginModules.add(new ModuleItem(module, pluginPanel));
             }
         }
 
-        if(!pluginModules.isEmpty()) {
+        if (!pluginModules.isEmpty()) {
             pluginPanel.setModuleItems(pluginModules);
             addPanel(pluginPanel);
         }
 
 
     }
+
     @Override
     public void renderElements(RenderContext renderContext, double mouseX, double mouseY) {
         final PoseStack matrixStack = renderContext.pose();
         final IRenderer2D renderer = this.getRenderer();
-        
-        for(Panel element : this.getElements()) {
-            if(!this.isEnabled(element)) continue;
-            if(element == null) continue;
+
+        for (Panel element : this.getElements()) {
+            if (!this.isEnabled(element)) continue;
+            if (element == null) continue;
             renderer.begin(matrixStack, this.getFontRenderer());
             matrixStack.translate(0, 0, 100);
             element.render(renderContext, mouseX, mouseY);
             renderer.end();
         }
-        
     }
 
     @Override
     public void setDefaultPositions() {
 
     }
-    
+
     @Override
     public IFontRenderer getFontRenderer() {
         return NhackPlugin.theme.forceVanilla.getValue() ? RusherHackAPI.fonts().getVanillaFontRenderer() : super.getFontRenderer();
     }
-    
+
     @Override
     public void render(RenderContext context, double mouseX, double mouseY) {
         super.render(context, mouseX, mouseY);
-        if(run != null) {
+        if (run != null) {
             run.run();
             run = null;
         }
     }
-    
+
     @Override
     public boolean isListening() {
         return RusherHackAPI.getThemeManager().getClickGuiHandler().equals(this)
-               && mc.screen == RusherHackAPI.getThemeManager().getClickGuiScreen();
+                && mc.screen == RusherHackAPI.getThemeManager().getClickGuiScreen();
     }
-    
+
     @Subscribe(stage = Stage.PRE)
     private void onScreenRender(EventRenderScreen event) {
         //background
@@ -119,5 +120,5 @@ public class ClickGUIHandler extends PanelHandlerBase<Panel> implements EventLis
         renderer.drawRectangle(0, 0, mc.getWindow().getScreenWidth(), mc.getWindow().getScreenHeight(), NhackPlugin.theme.backgroundColor.getValueRGB());
         renderer.end();
     }
-    
+
 }

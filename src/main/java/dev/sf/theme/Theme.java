@@ -6,7 +6,6 @@ import org.rusherhack.client.api.ui.panel.PanelHandlerBase;
 import org.rusherhack.client.api.ui.theme.ThemeBase;
 import org.rusherhack.core.setting.BooleanSetting;
 import org.rusherhack.core.setting.NumberSetting;
-import org.rusherhack.core.utils.ColorUtils;
 
 import java.awt.*;
 
@@ -18,17 +17,13 @@ public class Theme extends ThemeBase {
     public ColorSetting fontColor = new ColorSetting("FontColor", new Color(255, 255, 255));
     public BooleanSetting forceVanilla = new BooleanSetting("ForceVanilla", true);
     public ColorSetting categoryColor = new ColorSetting("CategoryColor", new Color(60, 200, 200, 128));
-    public ColorSetting categoryLineColor = new ColorSetting("CategoryLineColor", Color.WHITE);
-
-    public ColorSetting backColor = new ColorSetting("BackColor", new Color(0, 0, 0, 150));
+    public ColorSetting panelColor = new ColorSetting("PanelColor", new Color(0, 0, 0, 150));
 
     public BooleanSetting settingsOutline = new BooleanSetting("SettingsOutline", false);
-    public ColorSetting moduleOutlineColor = new ColorSetting("ModuleOutlineColor", new Color(145, 145, 145, 100));
+    public NumberSetting<Float> outlineWidth = new NumberSetting<>("OutlineWidth", 3F, 0.1F, 5F);
     public ColorSetting outlineColor = new ColorSetting("OutlineColor", Color.WHITE);
 
     public ColorSetting backgroundColor = new ColorSetting("BackgroundColor", new Color(0, 0, 0, 100));
-    public NumberSetting<Float> outlineWidth = new NumberSetting<>("OutlineWidth", 3F, 0.1F, 5F);
-
 
     public NumberSetting<Float> scrollSpeed = new NumberSetting<>("ScrollSpeed", 15F, 1F, 20F);
 
@@ -52,13 +47,11 @@ public class Theme extends ThemeBase {
                 forceVanilla,
 
                 categoryColor,
-                backColor,
+                panelColor,
 
-                settingsOutline,
-                categoryLineColor,
-                outlineColor,
-                moduleOutlineColor,
                 outlineWidth,
+                settingsOutline,
+                outlineColor,
 
                 backgroundColor,
 

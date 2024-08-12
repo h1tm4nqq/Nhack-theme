@@ -66,6 +66,7 @@ public class BooleanItem extends ExtendableItem {
         if(panel.isHovering(mouseX, mouseY, getX(), getY(), getWidth(), getHeight())) {
             renderer.drawRectangle(getX(), getY(), getWidth(), getHeight(), new Color(0, 0, 0, 70).getRGB());
         }
+
       if(subItems.isEmpty())  drawText(setting.getDisplayName());
       else drawTextEx(setting.getDisplayName());
       renderSubItems(context, mouseX, mouseY, subItems, open);
