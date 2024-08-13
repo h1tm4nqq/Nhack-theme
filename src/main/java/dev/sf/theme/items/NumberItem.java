@@ -7,6 +7,7 @@ import dev.sf.theme.Panel;
 import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
+import org.rusherhack.core.feature.IFeatureConfigurable;
 import org.rusherhack.core.setting.NumberSetting;
 import org.rusherhack.core.setting.Setting;
 import org.rusherhack.core.utils.ColorUtils;
@@ -31,7 +32,7 @@ public class NumberItem extends ExtendableItem {
     private double renderWidth;
     private int count;
 
-    public NumberItem(ExtendableItem parent, IModule module, Panel panel, Setting<?> settingValue) {
+    public NumberItem(ExtendableItem parent, IFeatureConfigurable module, Panel panel, Setting<?> settingValue) {
         super(parent, module, panel, settingValue);
         ctrlz.add(new StringBuilder(setting.getValue().toString()));
         ctrlz.add(str);

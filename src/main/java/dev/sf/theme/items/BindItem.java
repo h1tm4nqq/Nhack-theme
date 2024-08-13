@@ -10,6 +10,7 @@ import org.rusherhack.client.api.feature.module.ToggleableModule;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.core.bind.IBindable;
 import org.rusherhack.core.bind.key.IKey;
+import org.rusherhack.core.feature.IFeatureConfigurable;
 import org.rusherhack.core.setting.Setting;
 import org.rusherhack.core.utils.ColorUtils;
 import org.rusherhack.core.utils.Timer;
@@ -25,7 +26,7 @@ public class BindItem extends ExtendableItem{
     private int idling = 0;
     private static final String[] strings = new String[]{"", ".", "..", "..."};
 
-    public BindItem(ExtendableItem parent, IModule module, Panel panel, Setting<?> settingValue, Boolean moduleBind) {
+    public BindItem(ExtendableItem parent, IFeatureConfigurable module, Panel panel, Setting<?> settingValue, Boolean moduleBind) {
         super(parent, module, panel, settingValue);
         this.moduleBind = moduleBind;
         open = true;

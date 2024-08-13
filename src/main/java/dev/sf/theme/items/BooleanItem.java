@@ -8,13 +8,14 @@ import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
+import org.rusherhack.core.feature.IFeatureConfigurable;
 import org.rusherhack.core.setting.BooleanSetting;
 import org.rusherhack.core.utils.ColorUtils;
 
 import java.awt.*;
 
 public class BooleanItem extends ExtendableItem {
-    public BooleanItem(IModule module, dev.sf.theme.Panel panel, ExtendableItem parent, BooleanSetting setting) {
+    public BooleanItem(IFeatureConfigurable module, dev.sf.theme.Panel panel, ExtendableItem parent, BooleanSetting setting) {
         super(parent, module, panel, setting);
         this.panel = panel;
         this.module = module;
@@ -22,7 +23,7 @@ public class BooleanItem extends ExtendableItem {
         open = false;
     }
     Panel panel;
-    IModule module;
+    IFeatureConfigurable module;
     BooleanSetting setting;
 
 

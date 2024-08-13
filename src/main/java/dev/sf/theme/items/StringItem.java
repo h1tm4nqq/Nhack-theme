@@ -7,6 +7,7 @@ import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
+import org.rusherhack.core.feature.IFeatureConfigurable;
 import org.rusherhack.core.setting.Setting;
 import org.rusherhack.core.utils.ColorUtils;
 import org.rusherhack.core.utils.Timer;
@@ -29,7 +30,7 @@ public class StringItem extends ExtendableItem {
     private StringBuilder str = new StringBuilder();
     private final List<StringBuilder> ctrlz = new LinkedList<>();
 
-    public StringItem(ExtendableItem parent, IModule module, Panel panel, Setting<?> setting) {
+    public StringItem(ExtendableItem parent, IFeatureConfigurable module, Panel panel, Setting<?> setting) {
         super(parent, module, panel, setting);
         ctrlz.add(new StringBuilder((String) (Objects.equals(setting.getValue(), "") ? setting.getDefaultValue() : setting.getValue())));
         ctrlz.add(str);

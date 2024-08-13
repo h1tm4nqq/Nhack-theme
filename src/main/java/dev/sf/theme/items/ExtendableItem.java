@@ -13,6 +13,7 @@ import org.rusherhack.client.api.setting.BindSetting;
 import org.rusherhack.client.api.setting.ColorSetting;
 import org.rusherhack.client.api.ui.ElementBase;
 import org.rusherhack.client.api.ui.panel.IPanelItem;
+import org.rusherhack.core.feature.IFeatureConfigurable;
 import org.rusherhack.core.setting.*;
 
 import java.awt.*;
@@ -27,15 +28,15 @@ import static org.rusherhack.client.api.Globals.mc;
 
 public class ExtendableItem extends ElementBase implements IPanelItem {
     ExtendableItem parent;
-    IModule module;
-    dev.sf.theme.Panel panel;
+    IFeatureConfigurable module;
+    Panel panel;
     Setting setting;
     public double mouseX = 0, mouseY = 0, rendererHeight = 11F;
     public boolean open = true;
     public  IRenderer2D renderer = RusherHackAPI.getRenderer2D();
 	
     public List<ExtendableItem> subItems = new ArrayList<>();
-    public ExtendableItem(ExtendableItem parent, IModule module, dev.sf.theme.Panel panel, Setting<?> settingValue) {
+    public ExtendableItem(ExtendableItem parent, IFeatureConfigurable module, Panel panel, Setting<?> settingValue) {
         this.parent = parent;
         this.module = module;
         this.panel = panel;

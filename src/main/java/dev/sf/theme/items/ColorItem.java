@@ -10,6 +10,7 @@ import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.client.api.setting.ColorSetting;
+import org.rusherhack.core.feature.IFeatureConfigurable;
 import org.rusherhack.core.logging.ILogger;
 import org.rusherhack.core.setting.Setting;
 import org.rusherhack.core.utils.ColorUtils;
@@ -23,7 +24,7 @@ public class ColorItem extends ExtendableItem {
     private static final Color TRANSPARENT = new Color(0, 0, 0, 1);
 
 
-    public ColorItem(ExtendableItem parent, IModule module, Panel panel, Setting<?> settingValue) {
+    public ColorItem(ExtendableItem parent, IFeatureConfigurable module, Panel panel, Setting<?> settingValue) {
         super(parent, module, panel, settingValue);
         colorMode = ((ColorSetting) setting).getRainbowMode();
 

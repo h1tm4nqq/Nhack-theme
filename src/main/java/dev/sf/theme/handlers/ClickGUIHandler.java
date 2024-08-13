@@ -1,6 +1,8 @@
-package dev.sf.theme;
+package dev.sf.theme.handlers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.sf.theme.NhackPlugin;
+import dev.sf.theme.Panel;
 import dev.sf.theme.items.ModuleItem;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.events.render.EventRenderScreen;
@@ -14,7 +16,6 @@ import org.rusherhack.core.event.listener.EventListener;
 import org.rusherhack.core.event.stage.Stage;
 import org.rusherhack.core.event.subscribe.Subscribe;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

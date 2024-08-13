@@ -6,6 +6,7 @@ import dev.sf.theme.Theme;
 import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
+import org.rusherhack.core.feature.IFeatureConfigurable;
 import org.rusherhack.core.setting.Setting;
 import org.rusherhack.core.setting.StringSetting;
 import org.rusherhack.core.utils.ColorUtils;
@@ -18,7 +19,7 @@ import java.util.List;
 public class EnumItem extends ExtendableItem{
 
 
-    public EnumItem(ExtendableItem parent, IModule module, Panel panel, Setting<?> settingValue) {
+    public EnumItem(ExtendableItem parent, IFeatureConfigurable module, Panel panel, Setting<?> settingValue) {
         super(parent, module, panel, settingValue);
     }
 

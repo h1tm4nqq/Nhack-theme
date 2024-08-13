@@ -5,26 +5,27 @@ import dev.sf.theme.Panel;
 import dev.sf.theme.Theme;
 import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.RusherHackAPI;
+import org.rusherhack.client.api.feature.hud.IHudElement;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.feature.module.ToggleableModule;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.client.api.render.font.IFontRenderer;
 import org.rusherhack.client.api.setting.BindSetting;
+import org.rusherhack.core.feature.IFeatureConfigurable;
+import org.rusherhack.core.interfaces.IToggleable;
 import org.rusherhack.core.utils.ColorUtils;
 
 import java.awt.*;
 
 
 public class ModuleItem extends ExtendableItem {
-    IModule module;
     Panel panel;
     public boolean open = false;
     private double rendererHeight;
 
-    public ModuleItem(IModule module, Panel panel){
+    public ModuleItem(IFeatureConfigurable module, Panel panel){
         super(null, module, panel, null);
-        this.module = module;
         this.panel = panel;
 
         if(module instanceof ToggleableModule) {
@@ -65,7 +66,7 @@ public class ModuleItem extends ExtendableItem {
         super.render(context, mouseX, mouseY);
         final IRenderer2D renderer = RusherHackAPI.getRenderer2D();
         final IFontRenderer fontRenderer = getFontRenderer();
-        boolean isToggled = !(module instanceof ToggleableModule) || ((ToggleableModule) module).isToggled();
+        boolean isToggled = !(module instanceof IToggleable) || ((IToggleable) module).isToggled();
         
 
         renderer.drawOutlinedRectangle(
@@ -128,12 +129,12 @@ public class ModuleItem extends ExtendableItem {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == GLFW.GLFW_MOUSE_BUTTON_1 && panel.isHovering(mouseX, mouseY, getX(), getY(), getWidth() - 1 - 16, getHeight(false))) {
-            if(module instanceof ToggleableModule){
-                ((ToggleableModule) module).toggle();
+            if(module instanceof IToggleable){
+                ((IToggleable) module).toggle();
             }
             return true;
         }
-        
+
         if (button == GLFW.GLFW_MOUSE_BUTTON_1 && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 16) +  1, getY(), 13, getHeight(false))) {
             this.open = !this.open;
             return true;
@@ -162,8 +163,5 @@ public class ModuleItem extends ExtendableItem {
             temp += subItems.stream().mapToDouble(i -> i.setting.isHidden() ? 0 : (i.getHeight(true) + 3)).sum();
         rendererHeight = temp;
     }
-
-
-
 
 }

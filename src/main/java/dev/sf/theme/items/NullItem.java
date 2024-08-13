@@ -6,11 +6,12 @@ import dev.sf.theme.Theme;
 import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.RenderContext;
+import org.rusherhack.core.feature.IFeatureConfigurable;
 import org.rusherhack.core.setting.Setting;
 import org.rusherhack.core.utils.ColorUtils;
 
 public class NullItem extends ExtendableItem {
-    public NullItem(ExtendableItem parent, IModule module, Panel panel, Setting<?> settingValue) {
+    public NullItem(ExtendableItem parent, IFeatureConfigurable module, Panel panel, Setting<?> settingValue) {
         super(parent, module, panel, settingValue);
         open = false;
     }
