@@ -29,7 +29,7 @@ public class BindItem extends ExtendableItem{
     public BindItem(ExtendableItem parent, IFeatureConfigurable module, Panel panel, Setting<?> settingValue, Boolean moduleBind) {
         super(parent, module, panel, settingValue);
         this.moduleBind = moduleBind;
-        open = true;
+        open = false;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class BindItem extends ExtendableItem{
 
     @Override
     public boolean keyTyped(int key, int scanCode, int modifiers) {
-        if(!open) return false;
+        if(!parent.open) return false;
         if (isListening) {
             IKey bind = RusherHackAPI.getBindManager().createKeyboardKey(key);
             if (key == GLFW_KEY_ESCAPE
@@ -126,11 +126,11 @@ public class BindItem extends ExtendableItem{
                     isListening = !isListening;
                 }
             }
-            return false;
+            return true;
         }
         if(button == GLFW.GLFW_MOUSE_BUTTON_1 && parent.open && !subItems.isEmpty() && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 14) +  1, getY(), 13, getHeight(false))) {
             open = !open;
-            return false;
+            return true;
         }
 
         return super.mouseClicked(mouseX, mouseY, button);

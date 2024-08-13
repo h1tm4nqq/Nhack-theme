@@ -97,11 +97,11 @@ public class StringItem extends ExtendableItem {
             } else {
                 listening = true;
             }
-            return false;
+            return true;
         }
         if(button == GLFW.GLFW_MOUSE_BUTTON_1 && parent.open && !subItems.isEmpty() && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 14) +  1, getY(), 13, getHeight(false))) {
             open = !open;
-            return false;
+            return true;
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
@@ -148,6 +148,7 @@ public class StringItem extends ExtendableItem {
 
     @Override
     public boolean keyTyped(int keyCode, int scanCode, int modifiers) {
+        if(!parent.open) return false;
         if (isCopy(keyCode) && (listening || isHovering(mouseX, mouseY))) {
             mc.keyboardHandler.setClipboard(listening ? str.toString() : (String) setting.getValue());
             return true;

@@ -60,18 +60,18 @@ public class Panel extends PanelBase<IPanelItem> {
         final IRenderer2D renderer = RusherHackAPI.getRenderer2D();
         double height = this.getHeight();
         renderer.drawOutlinedRectangle
-        (
-                x, getYTop(),
-                getWidth(), 13.0, NhackPlugin.theme.outlineWidth.getValue(),
-                NhackPlugin.theme.categoryColor.getValueRGB(), NhackPlugin.theme.outlineColor.getValueRGB()
-        );
+                (
+                        x, getYTop(),
+                        getWidth(), 13.0, NhackPlugin.theme.outlineWidth.getValue(),
+                        NhackPlugin.theme.categoryColor.getValueRGB(), NhackPlugin.theme.outlineColor.getValueRGB()
+                );
         getFontRenderer().drawString
-        (
-                category,
-                x + 2,
-                y - 9.5 - 2,
-                NhackPlugin.theme.fontColor.getValue().getRGB()
-        );
+                (
+                        category,
+                        x + 2,
+                        y - 9.5 - 2,
+                        NhackPlugin.theme.fontColor.getValue().getRGB()
+                );
         renderer.drawOutlinedRectangle
                 (
                         x + 103,
@@ -79,13 +79,13 @@ public class Panel extends PanelBase<IPanelItem> {
                         10,
                         10,
                         NhackPlugin.theme.outlineWidth.getValue(),
-                     !open
-                             ? new Color(NhackPlugin.theme.getColorSetting().getValue().getRed(), NhackPlugin.theme.getColorSetting().getValue().getGreen(), NhackPlugin.theme.getColorSetting().getValue().getBlue(), NhackPlugin.theme.alpha.getValue()).getRGB()
-                             : NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.outlineColor.getValueRGB()
+                        !open
+                                ? new Color(NhackPlugin.theme.getColorSetting().getValue().getRed(), NhackPlugin.theme.getColorSetting().getValue().getGreen(), NhackPlugin.theme.getColorSetting().getValue().getBlue(), NhackPlugin.theme.alpha.getValue()).getRGB()
+                                : NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.outlineColor.getValueRGB()
                 );
 
         if (open) {
-            
+
             renderer.beginScissor();
             renderer.scissorBox(
                     x - NhackPlugin.theme.outlineWidth.getValue() - 1,
@@ -93,15 +93,15 @@ public class Panel extends PanelBase<IPanelItem> {
                     getWidth() + NhackPlugin.theme.outlineWidth.getValue() + 2,
                     height + NhackPlugin.theme.outlineWidth.getValue() + 1.5F + 2
             );
-            
+
             if (height > 0) {
                 renderer.drawOutlinedRectangle
-                (
-                        x, y,
-                        getWidth(), height + 1, NhackPlugin.theme.outlineWidth.getValue(),
-                        NhackPlugin.theme.panelColor.getValueRGB(),
-                        NhackPlugin.theme.outlineColor.getValueRGB()
-                );
+                        (
+                                x, y,
+                                getWidth(), height + 1, NhackPlugin.theme.outlineWidth.getValue(),
+                                NhackPlugin.theme.panelColor.getValueRGB(),
+                                NhackPlugin.theme.outlineColor.getValueRGB()
+                        );
             }
             double y0 = y + 2;
             if (height > 0) {
@@ -112,7 +112,7 @@ public class Panel extends PanelBase<IPanelItem> {
                     y0 += frame.getHeight(true) + 3;
                 }
             }
-            
+
             renderer.endScissor();
         }
     }
@@ -138,9 +138,13 @@ public class Panel extends PanelBase<IPanelItem> {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (open) moduleItems.forEach(frame -> frame.mouseClicked(mouseX, mouseY, button));
+        if (open) {
+            for (ModuleItem frame : moduleItems) {
+                if (frame.mouseClicked(mouseX, mouseY, button)) return true;
+            }
+        }
         if (isHovering(mouseX, mouseY, getX(), getYTop(), getWidth(), 13)) {
-            if(isHovering(
+            if (isHovering(
                     mouseX,
                     mouseY,
                     getX() + 103,
@@ -149,14 +153,14 @@ public class Panel extends PanelBase<IPanelItem> {
                     10)
             ) {
                 open = !open;
-                return false;
+                return true;
             }
             if (button == 0) {
                 NhackPlugin.theme.getClickGuiHandler().getElements().forEach(element -> drag = false);
                 diffX = getX() - mouseX;
                 diffY = getY() - mouseY;
                 drag = true;
-                return false;
+                return true;
             }
         }
         return false;
@@ -180,7 +184,7 @@ public class Panel extends PanelBase<IPanelItem> {
         //   }
         return false;
     }
-    
+
     public boolean isHovering(double mouseX, double mouseY, double x, double y, double width, double height) {
         return x < mouseX && width + x > mouseX && y < mouseY && height + y > mouseY;
     }

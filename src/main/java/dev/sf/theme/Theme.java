@@ -18,11 +18,11 @@ import java.util.List;
 public class Theme extends ThemeBase {
     public ILogger logger;
 
-    public NumberSetting<Integer> alpha = new NumberSetting<>("Alpha", 128, 0, 255);
+    public NumberSetting<Integer> alpha = new NumberSetting<>("Alpha", 85, 0, 255);
     public ColorSetting fontColor = new ColorSetting("FontColor", new Color(255, 255, 255));
     public BooleanSetting forceVanilla = new BooleanSetting("ForceVanilla", true);
-    public ColorSetting categoryColor = new ColorSetting("CategoryColor", new Color(60, 200, 200, 128));
-    public ColorSetting panelColor = new ColorSetting("PanelColor", new Color(0, 0, 0, 150));
+    public ColorSetting categoryColor = new ColorSetting("CategoryColor", new Color(52, 52, 52, 150));
+    public ColorSetting panelColor = new ColorSetting("PanelColor", new Color(52, 52, 52, 150));
 
     public BooleanSetting settingsOutline = new BooleanSetting("SettingsOutline", false);
     public NumberSetting<Float> outlineWidth = new NumberSetting<>("OutlineWidth", 1F, 0.1F, 5F);

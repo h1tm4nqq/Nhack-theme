@@ -32,7 +32,7 @@ public class ExtendableItem extends ElementBase implements IPanelItem {
     Panel panel;
     Setting setting;
     public double mouseX = 0, mouseY = 0, rendererHeight = 11F;
-    public boolean open = true;
+    public boolean open = false;
     public  IRenderer2D renderer = RusherHackAPI.getRenderer2D();
 	
     public List<ExtendableItem> subItems = new ArrayList<>();

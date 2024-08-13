@@ -109,11 +109,11 @@ public class EnumItem extends ExtendableItem{
                 case GLFW.GLFW_MOUSE_BUTTON_1 -> next();
                 case GLFW.GLFW_MOUSE_BUTTON_2 -> previous();
             }
-            return false;
+            return true;
         }
         if(button == GLFW.GLFW_MOUSE_BUTTON_1 && parent.open && !subItems.isEmpty() && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 14) +  1, getY(), 13, getHeight(false))) {
             open = !open;
-            return false;
+            return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }

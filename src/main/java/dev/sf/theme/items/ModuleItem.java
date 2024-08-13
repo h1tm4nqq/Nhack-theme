@@ -21,7 +21,6 @@ import java.awt.*;
 
 public class ModuleItem extends ExtendableItem {
     Panel panel;
-    public boolean open = false;
     private double rendererHeight;
 
     public ModuleItem(IFeatureConfigurable module, Panel panel){
@@ -132,12 +131,12 @@ public class ModuleItem extends ExtendableItem {
             if(module instanceof IToggleable){
                 ((IToggleable) module).toggle();
             }
-            return false;
+            return true;
         }
 
         if (button == GLFW.GLFW_MOUSE_BUTTON_1 && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 16) +  1, getY(), 13, getHeight(false))) {
             this.open = !this.open;
-            return false;
+            return true;
         }
         
         return super.mouseClicked(mouseX, mouseY, button);

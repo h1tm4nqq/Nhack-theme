@@ -43,7 +43,6 @@ public class NumberItem extends ExtendableItem {
     @Override
     public void render(RenderContext context, double mouseX, double mouseY) {
         super.render(context, mouseX, mouseY);
-        open = true;
 
         setRenderWidth(((subItems.isEmpty() ? getWidth() : getWidth() - 14 - 1) - 4) * partialMultiplier());
 
@@ -105,11 +104,10 @@ public class NumberItem extends ExtendableItem {
                     listening = true;
                 }
             }
-            return false;
+            return true;
         }
         if(button == org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1 && parent.open && !subItems.isEmpty() && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 14) +  1, getY(), 13, getHeight(false))) {
             open = !open;
-            return false;
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
@@ -120,7 +118,7 @@ public class NumberItem extends ExtendableItem {
         if (isCopy(key) && (listening || isHovering(mouseX, mouseY))) {
             String text = wrapString("Number" + genPrefix(), listening ? str.toString() : setting.getValue().toString());
             setClipboardString(text);
-            return false;
+            return true;
         }
         if (isPaste(key) && (listening || isHovering(mouseX, mouseY))) {
             String text = getValueFromWrappedString("Number" + genPrefix(), getClipboardString());
@@ -128,12 +126,12 @@ public class NumberItem extends ExtendableItem {
                 str = new StringBuilder(text);
                 set();
             }
-            return false;
+            return true;
         }
         if (isCTRLZ(key) && (listening || isHovering(mouseX, mouseY))) {
             str = ctrlz.get(count = Math.min(count - 1, ctrlz.size() - 1));
             set();
-            return false;
+            return true;
         }
         if (listening)
             switch (key) {
