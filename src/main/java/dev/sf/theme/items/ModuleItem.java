@@ -132,12 +132,12 @@ public class ModuleItem extends ExtendableItem {
             if(module instanceof IToggleable){
                 ((IToggleable) module).toggle();
             }
-            return true;
+            return false;
         }
 
         if (button == GLFW.GLFW_MOUSE_BUTTON_1 && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 16) +  1, getY(), 13, getHeight(false))) {
             this.open = !this.open;
-            return true;
+            return false;
         }
         
         return super.mouseClicked(mouseX, mouseY, button);

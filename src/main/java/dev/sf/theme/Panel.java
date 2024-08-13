@@ -156,6 +156,7 @@ public class Panel extends PanelBase<IPanelItem> {
                 diffX = getX() - mouseX;
                 diffY = getY() - mouseY;
                 drag = true;
+                return false;
             }
         }
         return false;

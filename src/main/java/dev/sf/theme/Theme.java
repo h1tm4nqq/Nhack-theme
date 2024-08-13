@@ -25,7 +25,7 @@ public class Theme extends ThemeBase {
     public ColorSetting panelColor = new ColorSetting("PanelColor", new Color(0, 0, 0, 150));
 
     public BooleanSetting settingsOutline = new BooleanSetting("SettingsOutline", false);
-    public NumberSetting<Float> outlineWidth = new NumberSetting<>("OutlineWidth", 3F, 0.1F, 5F);
+    public NumberSetting<Float> outlineWidth = new NumberSetting<>("OutlineWidth", 1F, 0.1F, 5F);
     public ColorSetting outlineColor = new ColorSetting("OutlineColor", Color.WHITE);
 
     public ColorSetting backgroundColor = new ColorSetting("BackgroundColor", new Color(0, 0, 0, 100));

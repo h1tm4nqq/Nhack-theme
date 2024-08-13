@@ -81,9 +81,11 @@ public class BooleanItem extends ExtendableItem {
                 : panel.isHovering(mouseX, mouseY, getX(), getY(), getWidth() - 1 - 14, getHeight(false)))
         {
             setting.setValue(!setting.getValue());
+            return false;
         }
         if(button == GLFW.GLFW_MOUSE_BUTTON_1 && parent.open && !subItems.isEmpty() && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 14) +  1, getY(), 13, getHeight(false))) {
             open = !open;
+            return false;
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }

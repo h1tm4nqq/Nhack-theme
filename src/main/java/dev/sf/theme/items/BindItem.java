@@ -62,9 +62,7 @@ public class BindItem extends ExtendableItem{
             renderer.drawRectangle(getX(), getY(), getWidth(), getHeight(), new Color(0,0,0, 70).getRGB());
         }
 
-        String displayString = moduleBind
-                ? RusherHackAPI.getBindManager().getBind((ToggleableModule) module).getDisplayLabel()
-                : setting.getDisplayValue().equalsIgnoreCase("unknown") ? "NONE" : setting.getDisplayValue();
+        String displayString = setting.getDisplayValue().equalsIgnoreCase("unknown") ? "None" : setting.getDisplayValue();
 
         String text = isListening
                 ? setting.getDisplayName() + " - Waiting" + getIdleSign()
@@ -128,9 +126,11 @@ public class BindItem extends ExtendableItem{
                     isListening = !isListening;
                 }
             }
+            return false;
         }
         if(button == GLFW.GLFW_MOUSE_BUTTON_1 && parent.open && !subItems.isEmpty() && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 14) +  1, getY(), 13, getHeight(false))) {
             open = !open;
+            return false;
         }
 
         return super.mouseClicked(mouseX, mouseY, button);

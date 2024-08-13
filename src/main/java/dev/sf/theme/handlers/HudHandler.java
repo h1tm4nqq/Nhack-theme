@@ -8,6 +8,7 @@ import dev.sf.theme.Panel;
 import dev.sf.theme.items.ModuleItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import net.minecraft.client.Minecraft;
 import org.rusherhack.client.api.Globals;
 import org.rusherhack.client.api.RusherHackAPI;
 import org.rusherhack.client.api.events.render.EventRenderScreen;
@@ -22,6 +23,7 @@ import org.rusherhack.client.api.ui.panel.PanelHandlerBase;
 import org.rusherhack.core.event.stage.Stage;
 import org.rusherhack.core.event.subscribe.Subscribe;
 import org.rusherhack.core.interfaces.IClickable;
+import org.rusherhack.core.interfaces.IDraggable;
 import org.rusherhack.core.setting.BooleanSetting;
 import org.rusherhack.core.setting.Setting;
 import org.rusherhack.core.utils.ColorUtils;
@@ -72,10 +74,13 @@ public class HudHandler extends HudHandlerBase {
         } else if (y > window.getGuiScaledHeight()) {
             hudElement.setY(window.getGuiScaledHeight());
         }
+
         double width = Math.max(hudElement.getScaledWidth(), renderer.getFontRenderer().getStringWidth(hudElement.getName()) + 30 + 12.5) + 1;
+
         if (!building) {
             renderer.begin(matrixStack, fr);
         }
+
         x = hudElement.getStartX();
         y = hudElement.getStartY();
         renderer.getMatrixStack().pushPose();
@@ -168,7 +173,10 @@ public class HudHandler extends HudHandlerBase {
         return false;
     }
 
-
+    @Override
+    public IFontRenderer getFontRenderer() {
+        return NhackPlugin.theme.forceVanilla.getValue() ? RusherHackAPI.fonts().getVanillaFontRenderer() : super.getFontRenderer();
+    }
 
     //code in 6:20 am haven't slept all night
 
@@ -215,8 +223,28 @@ public class HudHandler extends HudHandlerBase {
     }
 
     @Override
-    public void mouseMoved(double mouseX, double mouseY) {
-        super.mouseMoved(mouseX, mouseY);
+    protected void consumeMouseMove(double mouseX, double mouseY) {
+        for(HudElement element : this.getElements()) {
+            if(!this.isEnabled(element)) continue;
+
+            if(element != null && this.consumeElementMouseMove(element, mouseX, mouseY)) {
+                double x = element.getStartX() + element.getScaledWidth() + 1;
+                double y = element.getStartY() + 1;
+                Window window = Minecraft.getInstance().getWindow();
+                if (x < 0) {
+                    element.setX(0);
+                } else if (x > window.getGuiScaledWidth()) {
+                    element.setX(window.getGuiScaledWidth());
+                }
+
+                if (y < 0) {
+                    element.setY(0);
+                } else if (y > window.getGuiScaledHeight()) {
+                    element.setY(window.getGuiScaledHeight());
+                }
+                break;
+            }
+        }
     }
 
     @Override

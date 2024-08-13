@@ -69,6 +69,7 @@ public class NullItem extends ExtendableItem {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if(button == GLFW.GLFW_MOUSE_BUTTON_1 && parent.open && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 14) +  1, getY(), 13, getHeight(false))) {
             open = !open;
+            return false;
         }
 
         return super.mouseClicked(mouseX, mouseY, button);

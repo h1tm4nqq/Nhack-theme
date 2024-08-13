@@ -56,8 +56,11 @@ public class ClickGUIHandler extends PanelHandlerBase<Panel> implements EventLis
 
         List<ModuleItem> pluginModules = new ArrayList<>();
         final ClassLoader rusherhackClassLoader = RusherHackAPI.getModuleManager().getFeature("Aura").get().getClass().getClassLoader();
-
         Panel pluginPanel = new Panel(this, "Plugins", x1, 17);
+        if(x1 + pluginPanel.getWidth() + 5 > mc.getWindow().getGuiScaledWidth()) {
+            pluginPanel.setX(panels.get(panels.size() - 1).getX());
+            pluginPanel.setY(panels.get(panels.size() - 1).getY() + panels.get(panels.size() - 1).getHeight());
+        }
 
         for (IModule module : RusherHackAPI.getModuleManager().getFeatures()) {
             if (!module.getClass().getClassLoader().equals(rusherhackClassLoader)) {
