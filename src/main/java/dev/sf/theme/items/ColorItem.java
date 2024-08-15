@@ -18,6 +18,8 @@ import org.rusherhack.core.utils.ColorUtils;
 import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 //3 года назад я нашел этот колорпикер в каком-то убогом чите, эхх настольгия. А сколько же он повидал: первый форевор, второй форевор, тему хуза и мою тему.
 //3 years ago I found this colorpicker in some shitty cheat, ehhh nostalgia. And how much it has seen: first forevor, second forevor, xyz and my theme.
 public class ColorItem extends ExtendableItem {
@@ -62,9 +64,6 @@ public class ColorItem extends ExtendableItem {
     private double hCursorX;
     boolean changed = false;
     double h = 0;
-    double rainbow = 0;
-    private boolean isOpenPicker;
-    private int speed;
     // positions
     private double svPickerX;
     private double svPickerY;
@@ -111,7 +110,7 @@ public class ColorItem extends ExtendableItem {
                 13,
                 getHeight(),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                isOpenPicker
+                open
                         ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
                         : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
@@ -131,7 +130,7 @@ public class ColorItem extends ExtendableItem {
                 ((Color) setting.getValue()).getRGB(),
                 Color.BLACK.getRGB()
         );
-        if (isOpenPicker || getHeight() > 14) {
+        if (open || getHeight() > 14) {
             Color c = ((ColorSetting) this.setting).getValue();
             double pickerX = x + 1.5F;
             double pickerY = this.getY() + this.getHeight();
@@ -319,11 +318,11 @@ public class ColorItem extends ExtendableItem {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == GLFW.GLFW_MOUSE_BUTTON_1 && parent.open && panel.isHovering(mouseX, mouseY, getX() + 1 + (getWidth() - 14) + 1, getY(), 13, getHeight(false))) {
-            isOpenPicker = !isOpenPicker;
+            open = !open;
             return true;
         }
 
-        if (isOpenPicker) {
+        if (open) {
             if (button == 0) {
                 if (isHovering(mouseX, mouseY, svPickerX, svPickerY, svPickerX + svPickerWidth, svPickerY + svPickerHeight)) {
                     svChanging = true;
@@ -346,7 +345,7 @@ public class ColorItem extends ExtendableItem {
         double percent = (mouseX - getX()) / (getWidth());
         int speed = 1 + (int) (254 * percent);
         if (speed >= 1 && speed <= 255) {
-            this.speed = speed;
+            //  this.speed = speed;
         }
     }
 
@@ -387,7 +386,7 @@ public class ColorItem extends ExtendableItem {
 
     protected void possibleHeightUpdate() {
         double temp;
-        if (isOpenPicker) {
+        if (open) {
             temp = (!small ? svPickerHeight + aPickerHeight + 3 : svPickerHeight) + 17;// ура фикс хохла пикера
         } else {
             temp = super.getHeight();
