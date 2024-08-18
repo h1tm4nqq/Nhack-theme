@@ -11,6 +11,7 @@ import org.rusherhack.client.api.ui.panel.IPanelItem;
 import org.rusherhack.client.api.ui.panel.PanelBase;
 import org.rusherhack.client.api.ui.panel.PanelHandlerBase;
 import org.rusherhack.core.feature.IFeature;
+import org.rusherhack.core.utils.ColorUtils;
 
 import java.awt.*;
 import java.util.List;
@@ -79,9 +80,10 @@ public class Panel extends PanelBase<IPanelItem> {
                         10,
                         10,
                         NhackPlugin.theme.outlineWidth.getValue(),
-                        !open
-                                ? new Color(NhackPlugin.theme.getColorSetting().getValue().getRed(), NhackPlugin.theme.getColorSetting().getValue().getGreen(), NhackPlugin.theme.getColorSetting().getValue().getBlue(), NhackPlugin.theme.alpha.getValue()).getRGB()
-                                : NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.outlineColor.getValueRGB()
+                        open
+                                ? NhackPlugin.theme.buttonCColor.getValue().getRGB()
+                                : ColorUtils.transparency(NhackPlugin.theme.buttonCColor.getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                        NhackPlugin.theme.outlineColor.getValueRGB()
                 );
 
         if (open) {

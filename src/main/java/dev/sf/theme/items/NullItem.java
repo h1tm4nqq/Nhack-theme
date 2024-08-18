@@ -36,8 +36,8 @@ public class NullItem extends ExtendableItem {
                 getHeight(),
                 NhackPlugin.theme.outlineWidth.getValue(),
                 open
-                        ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                        : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                        ? NhackPlugin.theme.buttonMColor.getValue().getRGB()
+                        : ColorUtils.transparency(NhackPlugin.theme.buttonMColor.getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB());
 
         drawTextEx(setting.getDisplayName());

@@ -21,7 +21,9 @@ public class Theme extends ThemeBase {
     public NumberSetting<Integer> alpha = new NumberSetting<>("Alpha", 85, 0, 255);
     public ColorSetting fontColor = new ColorSetting("FontColor", new Color(255, 255, 255));
     public BooleanSetting forceVanilla = new BooleanSetting("ForceVanilla", true);
-    public ColorSetting categoryColor = new ColorSetting("CategoryColor", new Color(52, 52, 52, 150));
+    public ColorSetting categoryColor = new ColorSetting("CategoryColor", new Color(52, 52, 52, 85));
+    public ColorSetting buttonMColor = new ColorSetting("MButtonColor", new Color(60, 200, 200, 255));
+    public ColorSetting buttonCColor = new ColorSetting("CButtonColor", new Color(60, 200, 200, 255));
     public ColorSetting panelColor = new ColorSetting("PanelColor", new Color(52, 52, 52, 150));
 
     public BooleanSetting settingsOutline = new BooleanSetting("SettingsOutline", false);
@@ -50,6 +52,8 @@ public class Theme extends ThemeBase {
                 forceVanilla,
 
                 categoryColor,
+                buttonCColor,
+                buttonMColor,
                 panelColor,
 
                 outlineWidth,

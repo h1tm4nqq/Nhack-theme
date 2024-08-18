@@ -84,7 +84,9 @@ public class ModuleItem extends ExtendableItem {
                 13,
                 getHeight(false),
                 NhackPlugin.theme.outlineWidth.getValue(),
-                !subItems.isEmpty() && open ? NhackPlugin.theme.getColorSetting().getValue().getRGB() : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                !subItems.isEmpty() && open
+                        ? NhackPlugin.theme.buttonMColor.getValue().getRGB()
+                        : ColorUtils.transparency(NhackPlugin.theme.buttonMColor.getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                 NhackPlugin.theme.outlineColor.getValueRGB()
         );
 

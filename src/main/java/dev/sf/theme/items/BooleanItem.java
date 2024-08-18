@@ -2,10 +2,8 @@ package dev.sf.theme.items;
 
 import dev.sf.theme.NhackPlugin;
 import dev.sf.theme.Panel;
-import dev.sf.theme.Theme;
 import org.lwjgl.glfw.GLFW;
 import org.rusherhack.client.api.RusherHackAPI;
-import org.rusherhack.client.api.feature.module.IModule;
 import org.rusherhack.client.api.render.IRenderer2D;
 import org.rusherhack.client.api.render.RenderContext;
 import org.rusherhack.core.feature.IFeatureConfigurable;
@@ -58,8 +56,8 @@ public class BooleanItem extends ExtendableItem {
                     getHeight(),
                     NhackPlugin.theme.outlineWidth.getValue(),
                     open
-                    ? NhackPlugin.theme.getColorSetting().getValue().getRGB()
-                    : ColorUtils.transparency(NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                    ?  NhackPlugin.theme.buttonMColor.getValue().getRGB()
+                    : ColorUtils.transparency( NhackPlugin.theme.buttonMColor.getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
                     NhackPlugin.theme.outlineColor.getValueRGB());
         }
 

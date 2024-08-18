@@ -51,7 +51,7 @@ public class HudHandler extends HudHandlerBase {
 
     @Override
     public void renderHudElement(HudElement hudElement, RenderContext renderContext, double mouseX, double mouseY) {
-        if(mc.screen != RusherHackAPI.getThemeManager().getHudEditorScreen() && !shouldRender(hudElement)) {
+        if (mc.screen != RusherHackAPI.getThemeManager().getHudEditorScreen() && !shouldRender(hudElement)) {
             return;
         }
 
@@ -107,9 +107,10 @@ public class HudHandler extends HudHandlerBase {
                         10,
                         10,
                         NhackPlugin.theme.outlineWidth.getValue(),
-                        !shouldRender(hudElement)
-                                ? new Color(NhackPlugin.theme.getColorSetting().getValue().getRed(), NhackPlugin.theme.getColorSetting().getValue().getGreen(), NhackPlugin.theme.getColorSetting().getValue().getBlue(), NhackPlugin.theme.alpha.getValue()).getRGB()
-                                : NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.outlineColor.getValueRGB()
+                        shouldRender(hudElement)
+                                ? NhackPlugin.theme.buttonCColor.getValue().getRGB()
+                                : ColorUtils.transparency(NhackPlugin.theme.buttonCColor.getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                        NhackPlugin.theme.outlineColor.getValueRGB()
                 );
 
         renderer.drawOutlinedRectangle
@@ -119,9 +120,10 @@ public class HudHandler extends HudHandlerBase {
                         10,
                         10,
                         NhackPlugin.theme.outlineWidth.getValue(),
-                        !isOpen(hudElement)
-                                ? new Color(NhackPlugin.theme.getColorSetting().getValue().getRed(), NhackPlugin.theme.getColorSetting().getValue().getGreen(), NhackPlugin.theme.getColorSetting().getValue().getBlue(), NhackPlugin.theme.alpha.getValue()).getRGB()
-                                : NhackPlugin.theme.getColorSetting().getValue().getRGB(), NhackPlugin.theme.outlineColor.getValueRGB()
+                        isOpen(hudElement)
+                                ? NhackPlugin.theme.buttonCColor.getValue().getRGB()
+                                : ColorUtils.transparency(NhackPlugin.theme.buttonCColor.getValue().getRGB(), NhackPlugin.theme.alpha.getValue()),
+                        NhackPlugin.theme.outlineColor.getValueRGB()
                 );
 
         renderer.getMatrixStack().popPose();
@@ -182,7 +184,7 @@ public class HudHandler extends HudHandlerBase {
 
     private boolean isOpen(HudElement element) {
         for (Setting<?> setting : NhackPlugin.theme.getSettings()) {
-            if(setting.getName().equals(element.getName().toLowerCase() + "#is_open")) {
+            if (setting.getName().equals(element.getName().toLowerCase() + "#is_open")) {
                 return (boolean) setting.getValue();
             }
         }
@@ -192,7 +194,7 @@ public class HudHandler extends HudHandlerBase {
 
     private boolean shouldRender(HudElement element) {
         for (Setting<?> setting : NhackPlugin.theme.getSettings()) {
-            if(setting.getName().equals(element.getName().toLowerCase() + "#should_render")) {
+            if (setting.getName().equals(element.getName().toLowerCase() + "#should_render")) {
                 return (boolean) setting.getValue();
             }
         }
@@ -224,10 +226,10 @@ public class HudHandler extends HudHandlerBase {
 
     @Override
     protected void consumeMouseMove(double mouseX, double mouseY) {
-        for(HudElement element : this.getElements()) {
-            if(!this.isEnabled(element)) continue;
+        for (HudElement element : this.getElements()) {
+            if (!this.isEnabled(element)) continue;
 
-            if(element != null && this.consumeElementMouseMove(element, mouseX, mouseY)) {
+            if (element != null && this.consumeElementMouseMove(element, mouseX, mouseY)) {
                 double x = element.getStartX() + element.getScaledWidth() + 1;
                 double y = element.getStartY() + 1;
                 Window window = Minecraft.getInstance().getWindow();
